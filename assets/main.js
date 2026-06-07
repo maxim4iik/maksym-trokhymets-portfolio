@@ -1,106 +1,14 @@
 const root = document.documentElement;
 root.classList.add('js');
 
-const setupSmoothWheelScroll = () => {
+const setupSmoothAnchorScroll = () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  if (reduceMotion.matches || !('requestAnimationFrame' in window)) return;
-
-  root.classList.add('smooth-wheel');
-
-  let current = window.scrollY;
-  let target = current;
-  let frame = 0;
-
-  const maxScroll = () => Math.max(0, root.scrollHeight - window.innerHeight);
-  const clamp = (value) => Math.min(Math.max(value, 0), maxScroll());
-
-  const isNativeScrollArea = (element) => {
-    if (!(element instanceof Element)) return false;
-    if (element.closest('.preview-modal, .preview-frame, iframe, textarea, select, [data-native-scroll]')) {
-      return true;
-    }
-
-    let node = element;
-    while (node && node !== document.body) {
-      const style = window.getComputedStyle(node);
-      const canScroll = /(auto|scroll)/.test(`${style.overflow}${style.overflowY}`);
-      if (canScroll && node.scrollHeight > node.clientHeight + 1) return true;
-      node = node.parentElement;
-    }
-
-    return false;
-  };
-
-  const step = () => {
-    target = clamp(target);
-    const delta = target - current;
-
-    if (Math.abs(delta) < 0.45) {
-      current = target;
-      window.scrollTo(0, current);
-      frame = 0;
-      return;
-    }
-
-    current += delta * 0.12;
-    window.scrollTo(0, current);
-    frame = window.requestAnimationFrame(step);
-  };
-
-  const scrollToSmooth = (value) => {
-    current = window.scrollY;
-    target = clamp(value);
-
-    if (!frame) {
-      frame = window.requestAnimationFrame(step);
-    }
-  };
-
-  window.addEventListener(
-    'wheel',
-    (event) => {
-      if (
-        event.defaultPrevented ||
-        event.ctrlKey ||
-        event.metaKey ||
-        Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
-        document.body.classList.contains('preview-open') ||
-        isNativeScrollArea(event.target)
-      ) {
-        return;
-      }
-
-      event.preventDefault();
-
-      if (!frame) {
-        current = window.scrollY;
-        target = current;
-      }
-
-      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
-      target = clamp(target + event.deltaY * unit);
-
-      if (!frame) {
-        frame = window.requestAnimationFrame(step);
-      }
-    },
-    { passive: false }
-  );
-
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!frame) {
-        current = window.scrollY;
-        target = current;
-      }
-    },
-    { passive: true }
-  );
+  if (reduceMotion.matches) return;
 
   document.addEventListener('click', (event) => {
-    const link = event.target.closest('a[href^="#"]');
+    const target = event.target instanceof Element ? event.target : null;
+    const link = target ? target.closest('a[href^="#"]') : null;
     if (!link) return;
 
     const url = new URL(link.href);
@@ -114,12 +22,12 @@ const setupSmoothWheelScroll = () => {
 
     const margin = Number.parseFloat(window.getComputedStyle(targetElement).scrollMarginTop) || 0;
     const nextY = targetElement.getBoundingClientRect().top + window.scrollY - margin;
-    scrollToSmooth(nextY);
+    window.scrollTo({ top: nextY, behavior: 'smooth' });
     history.pushState(null, '', url.hash);
   });
 };
 
-setupSmoothWheelScroll();
+setupSmoothAnchorScroll();
 
 const menuButton = document.querySelector('[data-menu-button]');
 const nav = document.querySelector('[data-nav]');

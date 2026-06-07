@@ -29,10 +29,6 @@ html {
   letter-spacing: 0;
 }
 
-html.smooth-wheel {
-  scroll-behavior: auto;
-}
-
 body {
   margin: 0;
   background: var(--paper);
@@ -569,28 +565,30 @@ button {
   top: 42vh;
   z-index: 3;
   align-self: start;
+  justify-self: end;
   display: grid;
-  gap: 0.72rem;
-  justify-items: end;
-  padding-top: 0;
-  padding-right: clamp(4.2rem, 6.4vw, 6.6rem);
+  width: clamp(180px, 14vw, 210px);
+  gap: 0.9rem;
+  justify-items: center;
+  margin-right: clamp(2.2rem, 4.8vw, 5rem);
   color: var(--muted);
   font-family: var(--mono);
-  text-align: right;
+  text-align: center;
+  pointer-events: none;
 }
 
 .company-logo {
   display: inline-grid;
-  width: 58px;
-  height: 58px;
+  width: 116px;
+  height: 116px;
   place-items: center;
   border: 1px solid rgba(189, 91, 61, 0.34);
   border-radius: 999px;
   background: var(--paper);
   color: var(--ink);
-  padding: 5px;
+  padding: 10px;
   overflow: hidden;
-  box-shadow: 0 0 0 9px var(--paper), 0 14px 34px rgba(35, 31, 25, 0.1);
+  box-shadow: 0 0 0 12px var(--paper), 0 18px 44px rgba(35, 31, 25, 0.12);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
 }
 
@@ -608,7 +606,7 @@ button {
 }
 
 .company-ukrposhta img {
-  padding: 6px;
+  padding: 14px;
 }
 
 .company-karavan {
@@ -624,26 +622,29 @@ button {
 }
 
 .company-oskar img {
-  padding: 3px;
+  padding: 8px;
 }
 
 .timeline-marker .timeline-index {
   display: inline-grid;
-  width: 50px;
-  height: 50px;
+  width: 116px;
+  height: 116px;
   place-items: center;
   border: 1px solid rgba(189, 91, 61, 0.45);
   border-radius: 999px;
   background: var(--paper);
   color: var(--accent);
+  font-size: 1.55rem;
   font-weight: 780;
-  box-shadow: 0 0 0 9px var(--paper);
+  box-shadow: 0 0 0 12px var(--paper);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease;
 }
 
 .timeline-marker time {
-  max-width: 170px;
-  font-size: 0.86rem;
+  width: 100%;
+  max-width: none;
+  font-size: 0.92rem;
+  text-align: center;
   transition: color 240ms ease;
 }
 
@@ -673,8 +674,8 @@ button {
 
 .timeline-item.is-active .company-logo {
   border-color: rgba(189, 91, 61, 0.72);
-  transform: scale(1.08);
-  box-shadow: 0 0 0 9px var(--paper), 0 20px 46px rgba(189, 91, 61, 0.18);
+  transform: scale(1.04);
+  box-shadow: 0 0 0 12px var(--paper), 0 24px 58px rgba(189, 91, 61, 0.18);
 }
 
 .timeline-item.is-active .timeline-marker .timeline-index {
@@ -1452,27 +1453,33 @@ button {
     position: static;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.65rem;
+    width: auto;
+    margin-right: 0;
     justify-items: start;
     padding-right: 0;
     text-align: left;
   }
 
   .company-logo {
-    width: 40px;
-    height: 40px;
-    padding: 3px;
-    box-shadow: 0 0 0 7px var(--paper);
+    width: 72px;
+    height: 72px;
+    padding: 6px;
+    box-shadow: 0 0 0 8px var(--paper);
   }
 
   .timeline-marker .timeline-index {
-    width: 38px;
-    height: 38px;
+    width: 72px;
+    height: 72px;
+    font-size: 1rem;
     box-shadow: 0 0 0 8px var(--paper);
   }
 
   .timeline-marker time {
+    width: auto;
     max-width: none;
+    text-align: left;
   }
 
   .js .timeline-item .timeline-content {
