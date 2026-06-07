@@ -248,9 +248,9 @@ button {
 }
 
 .hero-identity {
-  position: relative;
+  display: grid;
+  gap: 1.15rem;
   max-width: 850px;
-  padding-right: clamp(96px, 10vw, 132px);
 }
 
 .hero-identity h1 {
@@ -258,10 +258,8 @@ button {
 }
 
 .hero-photo-slot {
-  position: absolute;
-  top: 0.1rem;
-  right: 0;
-  width: clamp(88px, 7.4vw, 104px);
+  position: relative;
+  width: clamp(136px, 11.5vw, 172px);
   aspect-ratio: 1;
   margin: 0;
   display: grid;
@@ -270,17 +268,17 @@ button {
   border: 1px solid rgba(248, 244, 237, 0.2);
   border-radius: 999px;
   background:
-    linear-gradient(135deg, rgba(248, 244, 237, 0.13), transparent 42%),
-    radial-gradient(circle at 72% 22%, rgba(220, 118, 82, 0.28), transparent 34%),
+    linear-gradient(135deg, rgba(248, 244, 237, 0.15), transparent 44%),
+    radial-gradient(circle at 72% 22%, rgba(220, 118, 82, 0.32), transparent 36%),
     rgba(248, 244, 237, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(248, 244, 237, 0.04), 0 26px 70px rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(248, 244, 237, 0.05), 0 30px 82px rgba(0, 0, 0, 0.32);
 }
 
 .hero-photo-slot::before,
 .hero-photo-slot::after {
   content: "";
   position: absolute;
-  inset: 12px;
+  inset: 17px;
   border: 1px solid rgba(248, 244, 237, 0.14);
   border-radius: 999px;
 }
@@ -296,10 +294,20 @@ button {
 .hero-photo-slot span {
   position: relative;
   z-index: 1;
-  color: rgba(248, 244, 237, 0.72);
+  color: rgba(248, 244, 237, 0.68);
   font-family: var(--mono);
-  font-size: 1rem;
+  font-size: 0.78rem;
   font-weight: 760;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero-photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-line {
@@ -553,29 +561,38 @@ button {
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
+  overflow: hidden;
   box-shadow: 0 0 0 11px var(--paper), 0 16px 38px rgba(35, 31, 25, 0.09);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
 }
 
-.company-logo span {
-  font-size: 1.02rem;
-  font-weight: 850;
-  letter-spacing: 0;
+.company-logo img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
 }
 
 .company-ukrposhta {
-  background: #ffd326;
-  color: #1f1d19;
+  background: var(--dark);
 }
 
 .company-karavan {
-  background: #fffdfa;
-  color: var(--accent);
+  background: #4d4d4d;
+}
+
+.company-karavan img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .company-oskar {
-  background: var(--dark);
-  color: var(--paper);
+  background: var(--surface);
+}
+
+.company-oskar img {
+  width: 86%;
+  height: 86%;
 }
 
 .timeline-marker .timeline-index {
@@ -1326,6 +1343,10 @@ button {
     gap: 2.2rem;
   }
 
+  .hero-photo-slot {
+    width: clamp(128px, 20vw, 156px);
+  }
+
   .hero-inner,
   .intro-grid,
   .section-intro,
@@ -1411,10 +1432,6 @@ button {
     box-shadow: 0 0 0 8px var(--paper);
   }
 
-  .company-logo span {
-    font-size: 0.82rem;
-  }
-
   .timeline-marker .timeline-index {
     width: 38px;
     height: 38px;
@@ -1462,11 +1479,7 @@ button {
   }
 
   .hero-photo-slot {
-    position: relative;
-    top: auto;
-    right: auto;
-    width: 88px;
-    margin-top: 0.9rem;
+    width: 128px;
   }
 
   .hero h1 {
