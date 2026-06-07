@@ -110,23 +110,26 @@ button {
 }
 
 .brand {
-  display: inline-flex;
+  display: inline-grid;
   align-items: center;
-  gap: 0.42rem;
-  color: var(--paper);
+  width: 84px;
+  height: 48px;
   text-decoration: none;
-  font-weight: 850;
-  font-size: 1.05rem;
-  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.34));
+  transform-origin: 0 50%;
+  transition: transform 180ms ease, filter 180ms ease;
 }
 
-.brand span:nth-child(2) {
-  color: var(--accent-2);
+.brand:hover,
+.brand:focus-visible {
+  filter: drop-shadow(0 22px 44px rgba(0, 0, 0, 0.42));
+  outline: none;
+  transform: translateY(-1px);
 }
 
-.brand-mark {
-  color: rgba(248, 244, 237, 0.65);
-  font-weight: 520;
+.brand img {
+  width: 100%;
+  height: auto;
 }
 
 .nav {
@@ -242,6 +245,61 @@ button {
   font-size: clamp(4.1rem, 7.9vw, 7.15rem);
   line-height: 0.93;
   font-weight: 880;
+}
+
+.hero-identity {
+  position: relative;
+  max-width: 850px;
+  padding-right: clamp(96px, 10vw, 132px);
+}
+
+.hero-identity h1 {
+  max-width: 720px;
+}
+
+.hero-photo-slot {
+  position: absolute;
+  top: 0.1rem;
+  right: 0;
+  width: clamp(88px, 7.4vw, 104px);
+  aspect-ratio: 1;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(248, 244, 237, 0.2);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(248, 244, 237, 0.13), transparent 42%),
+    radial-gradient(circle at 72% 22%, rgba(220, 118, 82, 0.28), transparent 34%),
+    rgba(248, 244, 237, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(248, 244, 237, 0.04), 0 26px 70px rgba(0, 0, 0, 0.28);
+}
+
+.hero-photo-slot::before,
+.hero-photo-slot::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(248, 244, 237, 0.14);
+  border-radius: 999px;
+}
+
+.hero-photo-slot::after {
+  inset: auto 18px 18px auto;
+  width: 12px;
+  height: 12px;
+  border: 1px solid rgba(220, 118, 82, 0.52);
+  background: rgba(220, 118, 82, 0.2);
+}
+
+.hero-photo-slot span {
+  position: relative;
+  z-index: 1;
+  color: rgba(248, 244, 237, 0.72);
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 760;
 }
 
 .hero-line {
@@ -431,7 +489,7 @@ button {
 
 .timeline {
   position: relative;
-  --timeline-x: 30%;
+  --timeline-x: 22%;
   --timeline-progress: 0%;
   padding: 2rem 0 4rem;
 }
@@ -477,24 +535,60 @@ button {
   z-index: 3;
   align-self: start;
   display: grid;
-  gap: 0.7rem;
-  justify-items: start;
+  gap: 0.62rem;
+  justify-items: end;
   padding-top: 0;
+  padding-right: clamp(0.8rem, 2.5vw, 1.6rem);
   color: var(--muted);
   font-family: var(--mono);
+  text-align: right;
 }
 
-.timeline-marker span {
+.company-logo {
   display: inline-grid;
-  width: 54px;
-  height: 54px;
+  width: 68px;
+  height: 68px;
+  place-items: center;
+  border: 1px solid rgba(189, 91, 61, 0.3);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 0 0 11px var(--paper), 0 16px 38px rgba(35, 31, 25, 0.09);
+  transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
+}
+
+.company-logo span {
+  font-size: 1.02rem;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.company-ukrposhta {
+  background: #ffd326;
+  color: #1f1d19;
+}
+
+.company-karavan {
+  background: #fffdfa;
+  color: var(--accent);
+}
+
+.company-oskar {
+  background: var(--dark);
+  color: var(--paper);
+}
+
+.timeline-marker .timeline-index {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
   place-items: center;
   border: 1px solid rgba(189, 91, 61, 0.45);
   border-radius: 999px;
   background: var(--paper);
   color: var(--accent);
   font-weight: 780;
-  box-shadow: 0 0 0 10px var(--paper);
+  box-shadow: 0 0 0 8px var(--paper);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease;
 }
 
@@ -528,7 +622,13 @@ button {
   box-shadow: 0 30px 90px rgba(35, 31, 25, 0.16);
 }
 
-.timeline-item.is-active .timeline-marker span {
+.timeline-item.is-active .company-logo {
+  border-color: rgba(189, 91, 61, 0.72);
+  transform: scale(1.06);
+  box-shadow: 0 0 0 11px var(--paper), 0 24px 60px rgba(189, 91, 61, 0.18);
+}
+
+.timeline-item.is-active .timeline-marker .timeline-index {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--white);
@@ -1180,6 +1280,11 @@ button {
     width: min(100% - 28px, var(--max));
   }
 
+  .brand {
+    width: 78px;
+    height: 45px;
+  }
+
   .menu-button {
     display: block;
   }
@@ -1292,12 +1397,32 @@ button {
 
   .timeline-marker {
     position: static;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    justify-items: start;
+    padding-right: 0;
+    text-align: left;
   }
 
-  .timeline-marker span {
-    width: 42px;
-    height: 42px;
+  .company-logo {
+    width: 48px;
+    height: 48px;
     box-shadow: 0 0 0 8px var(--paper);
+  }
+
+  .company-logo span {
+    font-size: 0.82rem;
+  }
+
+  .timeline-marker .timeline-index {
+    width: 38px;
+    height: 38px;
+    box-shadow: 0 0 0 8px var(--paper);
+  }
+
+  .timeline-marker time {
+    max-width: none;
   }
 
   .js .timeline-item .timeline-content {
@@ -1330,6 +1455,18 @@ button {
   .hero {
     min-height: auto;
     padding: 6.5rem 0 4rem;
+  }
+
+  .hero-identity {
+    padding-right: 0;
+  }
+
+  .hero-photo-slot {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 88px;
+    margin-top: 0.9rem;
   }
 
   .hero h1 {
