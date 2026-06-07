@@ -1,6 +1,83 @@
 const root = document.documentElement;
 root.classList.add('js');
 
+const scrollProgress = document.querySelector('[data-scroll-progress]');
+
+if (scrollProgress) {
+  let pending = false;
+
+  const updateScrollProgress = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = scrollable <= 0 ? 0 : window.scrollY / scrollable;
+    const pct = Math.max(0, Math.min(1, ratio)) * 100;
+    scrollProgress.style.setProperty('--scroll-progress', `${pct}%`);
+    pending = false;
+  };
+
+  const scheduleScrollProgress = () => {
+    if (!pending) {
+      pending = true;
+      window.requestAnimationFrame(updateScrollProgress);
+    }
+  };
+
+  updateScrollProgress();
+  window.addEventListener('scroll', scheduleScrollProgress, { passive: true });
+  window.addEventListener('resize', scheduleScrollProgress);
+}
+
+const themeToggle = document.querySelector('[data-theme-toggle]');
+
+if (themeToggle) {
+  const isUa = document.documentElement.lang === 'uk';
+  const labels = isUa
+    ? { toLight: 'Перемкнути на світлу тему', toDark: 'Перемкнути на темну тему' }
+    : { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' };
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const currentTheme = () => {
+    const attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'dark' || attr === 'light') return attr;
+    return prefersDark.matches ? 'dark' : 'light';
+  };
+
+  const syncLabel = () => {
+    themeToggle.setAttribute(
+      'aria-label',
+      currentTheme() === 'dark' ? labels.toLight : labels.toDark
+    );
+  };
+
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      /* persistence unavailable */
+    }
+    syncLabel();
+  };
+
+  themeToggle.addEventListener('click', () => {
+    applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+  });
+
+  const onSystemChange = () => {
+    if (!document.documentElement.getAttribute('data-theme')) {
+      syncLabel();
+    }
+  };
+
+  if (prefersDark.addEventListener) {
+    prefersDark.addEventListener('change', onSystemChange);
+  } else if (prefersDark.addListener) {
+    prefersDark.addListener(onSystemChange);
+  }
+
+  syncLabel();
+}
+
 const setupSmoothAnchorScroll = () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 

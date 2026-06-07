@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Максим Трохимець | Бізнес-аналітик і Product Builder</title>
     <meta name="description" content="Бізнес-аналітик з інженерним, UI та маркетинговим досвідом. Хронологічне портфоліо систем, вимог, прототипів і сайтів.">
-    <meta name="theme-color" content="#171613">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f8f4ed" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
     <meta name="author" content="Максим Трохимець">
     <link rel="canonical" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <meta property="og:title" content="Максим Трохимець | Портфоліо">
@@ -23,8 +25,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260608-mobile-marker">
-    <script src="/assets/main.js?v=20260608-mobile-marker" defer></script>
+    <link rel="stylesheet" href="/assets/styles.css?v=20260608-dark-mode">
+    <script src="/assets/theme-init.js?v=20260608-dark-mode"></script>
+    <script src="/assets/main.js?v=20260608-dark-mode" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -57,6 +60,7 @@
   </head>
   <body>
     <a class="skip-link" href="#main">До контенту</a>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
     <header class="site-header" id="top">
       <a class="brand" href="/ua/" aria-label="Головна сторінка Максима Трохимця">
@@ -71,6 +75,15 @@
         <a href="#websites">Сайти</a>
         <a href="#contact">Контакт</a>
         <a class="nav-cv" href="/files/cv-maksym-trokhymets.pdf" download>Завантажити CV</a>
+        <button class="theme-toggle" type="button" aria-label="Перемкнути тему" data-theme-toggle>
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
         <span class="language-switch" aria-label="Перемикач мови">
           <a href="/">EN</a>
           <span>/</span>

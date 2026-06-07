@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Maksym Trokhymets | Business Analyst & Product Builder</title>
     <meta name="description" content="Business Analyst with engineering, UI, and marketing experience. A chronology-first portfolio of systems, requirements, prototypes, and selected websites.">
-    <meta name="theme-color" content="#171613">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f8f4ed" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
     <meta name="author" content="Maksym Trokhymets">
     <link rel="canonical" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <meta property="og:title" content="Maksym Trokhymets | Portfolio">
@@ -23,8 +25,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260608-mobile-marker">
-    <script src="/assets/main.js?v=20260608-mobile-marker" defer></script>
+    <link rel="stylesheet" href="/assets/styles.css?v=20260608-dark-mode">
+    <script src="/assets/theme-init.js?v=20260608-dark-mode"></script>
+    <script src="/assets/main.js?v=20260608-dark-mode" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -56,6 +59,7 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
     <header class="site-header" id="top">
       <a class="brand" href="/" aria-label="Maksym Trokhymets home">
@@ -70,6 +74,15 @@
         <a href="#websites">Selected websites</a>
         <a href="#contact">Contact</a>
         <a class="nav-cv" href="/files/cv-maksym-trokhymets.pdf" download>Download CV</a>
+        <button class="theme-toggle" type="button" aria-label="Switch theme" data-theme-toggle>
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
         <span class="language-switch" aria-label="Language switcher">
           <a href="/" aria-current="page">EN</a>
           <span>/</span>
