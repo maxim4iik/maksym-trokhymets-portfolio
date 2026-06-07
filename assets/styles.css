@@ -1451,15 +1451,23 @@ button {
 
   .timeline-marker {
     position: static;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "logo index"
+      "time time";
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    gap: 0.65rem;
-    width: auto;
+    gap: 0.55rem 0.9rem;
+    width: 100%;
     margin-right: 0;
-    justify-items: start;
+    justify-items: center;
     padding-right: 0;
-    text-align: left;
+    text-align: center;
+  }
+
+  .timeline-marker .company-logo {
+    grid-area: logo;
   }
 
   .company-logo {
@@ -1470,6 +1478,7 @@ button {
   }
 
   .timeline-marker .timeline-index {
+    grid-area: index;
     width: 72px;
     height: 72px;
     font-size: 1rem;
@@ -1477,9 +1486,12 @@ button {
   }
 
   .timeline-marker time {
+    grid-area: time;
     width: auto;
     max-width: none;
-    text-align: left;
+    text-align: center;
+    justify-self: center;
+    margin-top: 0.25rem;
   }
 
   .js .timeline-item .timeline-content {

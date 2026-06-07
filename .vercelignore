@@ -1,6 +1,6 @@
 design/
 output/
 tmp/
-public/
 previews/*.png
 *.log
+.DS_Store
