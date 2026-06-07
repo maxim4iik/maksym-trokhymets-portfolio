@@ -259,7 +259,7 @@ button {
 
 .hero-photo-slot {
   position: relative;
-  width: clamp(136px, 11.5vw, 172px);
+  width: clamp(150px, 12vw, 184px);
   aspect-ratio: 1;
   margin: 0;
   display: grid;
@@ -275,9 +275,14 @@ button {
 }
 
 .hero-photo-slot::before,
-.hero-photo-slot::after {
+.hero-photo-slot::after,
+.hero-photo-icon::before,
+.hero-photo-icon::after {
   content: "";
   position: absolute;
+}
+
+.hero-photo-slot::before {
   inset: 17px;
   border: 1px solid rgba(248, 244, 237, 0.14);
   border-radius: 999px;
@@ -291,15 +296,35 @@ button {
   background: rgba(220, 118, 82, 0.2);
 }
 
-.hero-photo-slot span {
+.hero-photo-icon {
   position: relative;
   z-index: 1;
-  color: rgba(248, 244, 237, 0.68);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  font-weight: 760;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  display: block;
+  width: 64%;
+  height: 64%;
+  border-radius: 999px;
+}
+
+.hero-photo-icon::before {
+  width: 32%;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 19%;
+  border: 1px solid rgba(248, 244, 237, 0.34);
+  border-radius: 999px;
+  background: rgba(248, 244, 237, 0.08);
+  transform: translateX(-50%);
+}
+
+.hero-photo-icon::after {
+  width: 68%;
+  height: 35%;
+  left: 50%;
+  bottom: 15%;
+  border: 1px solid rgba(248, 244, 237, 0.28);
+  border-radius: 999px 999px 0 0;
+  background: rgba(248, 244, 237, 0.06);
+  transform: translateX(-50%);
 }
 
 .hero-photo-slot img {
@@ -554,26 +579,31 @@ button {
 
 .company-logo {
   display: inline-grid;
-  width: 68px;
-  height: 68px;
+  width: 76px;
+  height: 76px;
   place-items: center;
-  border: 1px solid rgba(189, 91, 61, 0.3);
+  border: 1px solid rgba(189, 91, 61, 0.34);
   border-radius: 999px;
-  background: var(--surface);
+  background: var(--paper);
   color: var(--ink);
-  overflow: hidden;
+  padding: 7px;
   box-shadow: 0 0 0 11px var(--paper), 0 16px 38px rgba(35, 31, 25, 0.09);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
 }
 
 .company-logo img {
-  width: 72%;
-  height: 72%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  border-radius: 999px;
 }
 
 .company-ukrposhta {
   background: var(--dark);
+}
+
+.company-ukrposhta img {
+  padding: 10px;
 }
 
 .company-karavan {
@@ -581,9 +611,7 @@ button {
 }
 
 .company-karavan img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .company-oskar {
@@ -591,8 +619,7 @@ button {
 }
 
 .company-oskar img {
-  width: 86%;
-  height: 86%;
+  padding: 3px;
 }
 
 .timeline-marker .timeline-index {
@@ -1427,8 +1454,9 @@ button {
   }
 
   .company-logo {
-    width: 48px;
-    height: 48px;
+    width: 54px;
+    height: 54px;
+    padding: 5px;
     box-shadow: 0 0 0 8px var(--paper);
   }
 
@@ -1479,7 +1507,7 @@ button {
   }
 
   .hero-photo-slot {
-    width: 128px;
+    width: 136px;
   }
 
   .hero h1 {
