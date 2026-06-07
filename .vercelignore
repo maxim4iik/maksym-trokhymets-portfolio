@@ -1,0 +1,6 @@
+design/
+output/
+tmp/
+public/
+previews/*.png
+*.log

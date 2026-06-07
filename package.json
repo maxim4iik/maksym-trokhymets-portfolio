@@ -1,0 +1,14 @@
+{
+  "name": "maksym-trokhymets-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/validate-static.mjs",
+    "preview": "node scripts/serve.mjs",
+    "capture:previews": "node scripts/capture-previews.cjs",
+    "qa:browser": "node scripts/qa-browser.cjs"
+  },
+  "devDependencies": {}
+}
