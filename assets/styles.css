@@ -249,8 +249,8 @@ button {
 
 .hero-identity {
   display: grid;
-  gap: 1.15rem;
-  max-width: 850px;
+  gap: 1rem;
+  max-width: 900px;
 }
 
 .hero-identity h1 {
@@ -259,19 +259,20 @@ button {
 
 .hero-photo-slot {
   position: relative;
-  width: clamp(150px, 12vw, 184px);
+  width: clamp(104px, 8vw, 126px);
   aspect-ratio: 1;
   margin: 0;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px solid rgba(248, 244, 237, 0.2);
+  border: 2px solid rgba(248, 244, 237, 0.72);
   border-radius: 999px;
   background:
-    linear-gradient(135deg, rgba(248, 244, 237, 0.15), transparent 44%),
-    radial-gradient(circle at 72% 22%, rgba(220, 118, 82, 0.32), transparent 36%),
-    rgba(248, 244, 237, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(248, 244, 237, 0.05), 0 30px 82px rgba(0, 0, 0, 0.32);
+    radial-gradient(circle at 72% 20%, rgba(220, 118, 82, 0.34), transparent 34%),
+    linear-gradient(145deg, rgba(248, 244, 237, 0.18), rgba(248, 244, 237, 0.04));
+  box-shadow:
+    inset 0 0 0 8px rgba(248, 244, 237, 0.05),
+    0 20px 58px rgba(0, 0, 0, 0.34);
 }
 
 .hero-photo-slot::before,
@@ -283,17 +284,18 @@ button {
 }
 
 .hero-photo-slot::before {
-  inset: 17px;
-  border: 1px solid rgba(248, 244, 237, 0.14);
+  inset: 9px;
+  border: 1px dashed rgba(248, 244, 237, 0.34);
   border-radius: 999px;
 }
 
 .hero-photo-slot::after {
-  inset: auto 18px 18px auto;
-  width: 12px;
-  height: 12px;
-  border: 1px solid rgba(220, 118, 82, 0.52);
-  background: rgba(220, 118, 82, 0.2);
+  inset: auto 13px 13px auto;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(220, 118, 82, 0.72);
+  border-radius: 999px;
+  background: rgba(220, 118, 82, 0.48);
 }
 
 .hero-photo-icon {
@@ -579,23 +581,26 @@ button {
 
 .company-logo {
   display: inline-grid;
-  width: 76px;
-  height: 76px;
+  width: 46px;
+  height: 46px;
   place-items: center;
   border: 1px solid rgba(189, 91, 61, 0.34);
   border-radius: 999px;
   background: var(--paper);
   color: var(--ink);
-  padding: 7px;
-  box-shadow: 0 0 0 11px var(--paper), 0 16px 38px rgba(35, 31, 25, 0.09);
+  padding: 4px;
+  overflow: hidden;
+  box-shadow: 0 0 0 8px var(--paper), 0 12px 28px rgba(35, 31, 25, 0.09);
   transition: background 240ms ease, color 240ms ease, border-color 240ms ease, transform 240ms ease, box-shadow 240ms ease;
 }
 
 .company-logo img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 999px;
+  border-radius: inherit;
+  clip-path: circle(50% at 50% 50%);
 }
 
 .company-ukrposhta {
@@ -603,7 +608,7 @@ button {
 }
 
 .company-ukrposhta img {
-  padding: 10px;
+  padding: 5px;
 }
 
 .company-karavan {
@@ -619,7 +624,7 @@ button {
 }
 
 .company-oskar img {
-  padding: 3px;
+  padding: 2px;
 }
 
 .timeline-marker .timeline-index {
@@ -668,8 +673,8 @@ button {
 
 .timeline-item.is-active .company-logo {
   border-color: rgba(189, 91, 61, 0.72);
-  transform: scale(1.06);
-  box-shadow: 0 0 0 11px var(--paper), 0 24px 60px rgba(189, 91, 61, 0.18);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 8px var(--paper), 0 20px 46px rgba(189, 91, 61, 0.18);
 }
 
 .timeline-item.is-active .timeline-marker .timeline-index {
@@ -1371,7 +1376,7 @@ button {
   }
 
   .hero-photo-slot {
-    width: clamp(128px, 20vw, 156px);
+    width: clamp(96px, 14vw, 116px);
   }
 
   .hero-inner,
@@ -1454,10 +1459,10 @@ button {
   }
 
   .company-logo {
-    width: 54px;
-    height: 54px;
-    padding: 5px;
-    box-shadow: 0 0 0 8px var(--paper);
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    box-shadow: 0 0 0 7px var(--paper);
   }
 
   .timeline-marker .timeline-index {
@@ -1507,7 +1512,8 @@ button {
   }
 
   .hero-photo-slot {
-    width: 136px;
+    width: 94px;
+    margin: 0.9rem 0 0;
   }
 
   .hero h1 {
