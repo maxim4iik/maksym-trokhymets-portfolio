@@ -92,6 +92,7 @@ body.preview-open {
 
 #timeline,
 #bridge,
+#background,
 #websites,
 #github,
 #contact {
@@ -335,6 +336,7 @@ button {
 .section-intro,
 .timeline,
 .bridge-inner,
+.background-inner,
 .websites,
 .github-inner,
 .contact-inner,
@@ -357,6 +359,51 @@ button {
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 1.4rem;
+  padding: 0.42rem 0.85rem 0.42rem 0.7rem;
+  border: 1px solid rgba(220, 118, 82, 0.45);
+  border-radius: 999px;
+  background: rgba(220, 118, 82, 0.12);
+  color: var(--accent-2);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.hero-status .hero-status-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent-2);
+  box-shadow: 0 0 12px rgba(220, 118, 82, 0.62);
+}
+
+.hero-status .hero-status-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgba(220, 118, 82, 0.62);
+  animation: hero-status-pulse 2.4s ease-out infinite;
+}
+
+@keyframes hero-status-pulse {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-status .hero-status-dot::after {
+    animation: none;
+  }
 }
 
 .hero h1 {
@@ -692,9 +739,10 @@ button {
   justify-self: center;
   display: grid;
   width: clamp(180px, 14vw, 210px);
-  gap: 0.9rem;
+  gap: 1.9rem;
   justify-items: center;
   margin-right: 0;
+  margin-left: min(0px, calc((1120px - 100vw) / 2));
   color: var(--muted);
   font-family: var(--mono);
   text-align: center;
@@ -914,6 +962,120 @@ button {
   background: rgba(248, 244, 237, 0.09);
   color: var(--on-dark);
   box-shadow: 0 0 0 1px rgba(220, 118, 82, 0.08), 0 12px 34px rgba(0, 0, 0, 0.18);
+}
+
+.background-section {
+  padding: 7rem 0;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+
+.background-inner {
+  width: min(var(--max), calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.background-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 4rem;
+  margin-top: 2.4rem;
+}
+
+.background-column h3 {
+  margin: 0 0 1.6rem;
+  font-size: 1.55rem;
+  letter-spacing: -0.01em;
+}
+
+.education-list {
+  display: grid;
+  gap: 1.6rem;
+}
+
+.education-item {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgba(35, 31, 25, 0.05);
+}
+
+.education-degree {
+  font-weight: 720;
+  font-size: 1.18rem;
+  color: var(--ink);
+}
+
+.education-field {
+  color: var(--ink-2);
+}
+
+.education-institution {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.education-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.2rem;
+  margin-top: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.education-meta strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.languages-list {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.language-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.95rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.language-row .language-name {
+  font-weight: 660;
+}
+
+.language-row .language-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.language-row .language-cert {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.language-row .language-cert:hover,
+.language-row .language-cert:focus-visible {
+  color: var(--accent-2);
+}
+
+.language-row[data-level="native"] .language-level {
+  color: var(--accent);
 }
 
 .websites {
@@ -1500,6 +1662,11 @@ button {
     gap: 2.2rem;
   }
 
+  .background-grid {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
   .hero-photo-slot {
     width: clamp(96px, 14vw, 116px);
   }
@@ -1509,6 +1676,7 @@ button {
   .section-intro,
   .timeline,
   .bridge-inner,
+  .background-inner,
   .websites,
   .github-inner,
   .contact-inner,
@@ -1585,6 +1753,7 @@ button {
     gap: 1.1rem 0.9rem;
     width: 100%;
     margin-right: 0;
+    margin-left: 0;
     justify-items: center;
     padding-right: 0;
     text-align: center;
