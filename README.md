@@ -27,30 +27,6 @@ A few decisions worth flagging, since the repo doubles as a small case study:
 - **A11y basics.** Skip link, `aria-*` attributes on the preview modal, focus management, `prefers-reduced-motion` honored for scroll progress, theme-status pulse, and timeline animations.
 - **Telemetry.** Vercel Speed Insights + Web Analytics loaded via `/_vercel/...` edge endpoints — no third-party network calls.
 
-## Repository layout
-
-```
-.
-├── index.html          ← English landing page
-├── ua/index.html       ← Ukrainian landing page
-├── assets/             ← CSS, JS, logos, favicon
-├── images/             ← portrait + raster assets
-├── files/              ← CV PDF
-├── previews/           ← captured screenshots of portfolio sites
-├── scripts/            ← Node helpers (validate, serve, capture)
-├── robots.txt
-├── sitemap.xml
-└── vercel.json
-```
-
-## Development
-
-```bash
-npm run dev      # tiny Node HTTP server on http://localhost:4173
-npm run build    # runs scripts/validate-static.mjs — checks files and landmarks
-```
-
-No `npm install` is needed for either command.
 
 ## Licensing
 
