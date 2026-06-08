@@ -173,7 +173,7 @@ async function mockLivePreviews(page) {
   await page.waitForTimeout(650);
   const scrollAfter = await page.evaluate(() => window.scrollY);
   if (scrollAfter <= scrollBefore) {
-    throw new Error('Smooth wheel scroll did not move the page');
+    throw new Error('Wheel scroll did not move the page');
   }
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(220);

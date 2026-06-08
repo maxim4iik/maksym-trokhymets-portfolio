@@ -5,6 +5,10 @@ import { extname, join, normalize, resolve } from 'node:path';
 const root = process.cwd();
 const port = Number(process.env.PORT || 4173);
 const host = process.env.HOST || '127.0.0.1';
+const localVercelScripts = new Set([
+  '/_vercel/speed-insights/script.js',
+  '/_vercel/insights/script.js'
+]);
 
 const types = {
   '.css': 'text/css; charset=utf-8',
@@ -37,6 +41,17 @@ function resolvePath(url) {
 }
 
 createServer((req, res) => {
+  const pathname = new URL(req.url || '/', `http://localhost:${port}`).pathname;
+
+  if (localVercelScripts.has(pathname)) {
+    res.writeHead(200, {
+      'Cache-Control': 'no-store',
+      'Content-Type': 'text/javascript; charset=utf-8'
+    });
+    res.end('/* Local Vercel telemetry stub for browser QA. */\n');
+    return;
+  }
+
   const filePath = resolvePath(req.url || '/');
 
   if (!filePath || !existsSync(filePath)) {
