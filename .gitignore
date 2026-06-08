@@ -4,4 +4,6 @@ node_modules/
 dist/
 output/
 tmp/
+previews/*.png
 *.log
+.claude/

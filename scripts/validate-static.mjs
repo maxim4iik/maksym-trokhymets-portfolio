@@ -6,9 +6,10 @@ const required = [
   'assets/styles.css',
   'assets/main.js',
   'assets/favicon.svg',
-  'images/maksym-trokhymets-portrait.png',
   'images/maksym-trokhymets-portrait.webp',
   'files/cv-maksym-trokhymets.pdf',
+  'robots.txt',
+  'sitemap.xml',
   'vercel.json'
 ];
 
