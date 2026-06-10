@@ -504,6 +504,11 @@ button {
   object-fit: cover;
 }
 
+.hero-photo-slot.has-photo::before,
+.hero-photo-slot.has-photo::after {
+  display: none;
+}
+
 .hero-line {
   max-width: 660px;
   margin: 1.5rem 0 0;
