@@ -31,51 +31,41 @@ const themeToggle = document.querySelector('[data-theme-toggle]');
 if (themeToggle) {
   const isUa = document.documentElement.lang === 'uk';
   const labels = isUa
-    ? { toLight: 'Перемкнути на світлу тему', toDark: 'Перемкнути на темну тему' }
-    : { toLight: 'Switch to light theme', toDark: 'Switch to dark theme' };
+    ? { auto: 'Тема: авто (за пристроєм). Натисніть, щоб обрати світлу',
+        light: 'Тема: світла. Натисніть, щоб обрати темну',
+        dark: 'Тема: темна. Натисніть, щоб повернути авто' }
+    : { auto: 'Theme: auto (follows device). Click for light',
+        light: 'Theme: light. Click for dark',
+        dark: 'Theme: dark. Click for auto' };
 
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  // mode is the user's choice: 'auto' (no data-theme, follows the OS),
+  // 'light' or 'dark' (explicit override persisted in localStorage).
+  const order = ['auto', 'light', 'dark'];
 
-  const currentTheme = () => {
+  const currentMode = () => {
     const attr = document.documentElement.getAttribute('data-theme');
-    if (attr === 'dark' || attr === 'light') return attr;
-    return prefersDark.matches ? 'dark' : 'light';
+    return attr === 'light' || attr === 'dark' ? attr : 'auto';
   };
 
-  const syncLabel = () => {
-    themeToggle.setAttribute(
-      'aria-label',
-      currentTheme() === 'dark' ? labels.toLight : labels.toDark
-    );
-  };
-
-  const applyTheme = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem('theme', theme);
-    } catch {
-      /* persistence unavailable */
+  const applyMode = (mode) => {
+    if (mode === 'auto') {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.removeItem('theme'); } catch { /* ignore */ }
+    } else {
+      document.documentElement.setAttribute('data-theme', mode);
+      try { localStorage.setItem('theme', mode); } catch { /* ignore */ }
     }
-    syncLabel();
+    themeToggle.dataset.mode = mode;
+    themeToggle.setAttribute('aria-label', labels[mode]);
   };
 
   themeToggle.addEventListener('click', () => {
-    applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+    const next = order[(order.indexOf(currentMode()) + 1) % order.length];
+    applyMode(next);
   });
 
-  const onSystemChange = () => {
-    if (!document.documentElement.getAttribute('data-theme')) {
-      syncLabel();
-    }
-  };
-
-  if (prefersDark.addEventListener) {
-    prefersDark.addEventListener('change', onSystemChange);
-  } else if (prefersDark.addListener) {
-    prefersDark.addListener(onSystemChange);
-  }
-
-  syncLabel();
+  // Reflect the initial mode (set by theme-init.js before paint).
+  applyMode(currentMode());
 }
 
 const setupSmoothAnchorScroll = () => {
@@ -276,42 +266,43 @@ if (githubActivity) {
   const locale = isUa ? 'uk-UA' : 'en-US';
 
   const text = {
-    loading: isUa ? 'Завантажую публічну активність...' : 'Loading public activity...',
+    loading: isUa ? 'Завантажую активність...' : 'Loading activity...',
     unavailable: isUa
-      ? 'Публічна активність тимчасово недоступна.'
-      : 'Public activity is temporarily unavailable.',
-    sideActivity: isUa ? 'Публічна активність side-проєктів' : 'Public side-project activity',
-    latest: isUa ? 'остання' : 'latest',
-    events: isUa ? 'подій' : 'events'
+      ? 'Активність тимчасово недоступна.'
+      : 'Activity is temporarily unavailable.',
+    contributions: isUa ? 'контрибуцій за рік' : 'contributions in the last year',
+    contribOne: isUa ? 'контрибуція' : 'contribution',
+    contribFew: isUa ? 'контрибуції' : 'contributions'
   };
 
   const formatDate = (value) => {
     if (!value) return '';
-    return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' }).format(new Date(value));
+    return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' }).format(new Date(`${value}T00:00:00`));
   };
 
-  const renderGrid = (events = []) => {
+  const plural = (n) => (n === 1 ? text.contribOne : text.contribFew);
+
+  // Render exactly the days the API returns (last 42), oldest → newest.
+  const renderGrid = (days = []) => {
     if (!grid) return;
-
-    const counts = new Map();
-    events.forEach((event) => {
-      if (!event.created_at) return;
-      const key = event.created_at.slice(0, 10);
-      counts.set(key, (counts.get(key) || 0) + 1);
-    });
-
     grid.replaceChildren();
 
-    for (let index = 41; index >= 0; index -= 1) {
-      const date = new Date();
-      date.setDate(date.getDate() - index);
-      const key = date.toISOString().slice(0, 10);
-      const count = counts.get(key) || 0;
-      const cell = document.createElement('span');
-      cell.dataset.level = String(Math.min(4, count));
-      cell.title = `${formatDate(key)}: ${count} ${text.events}`;
-      grid.append(cell);
+    if (days.length === 0) {
+      // Placeholder empties so the grid keeps its shape while loading.
+      for (let i = 0; i < 42; i += 1) {
+        const cell = document.createElement('span');
+        cell.dataset.level = '0';
+        grid.append(cell);
+      }
+      return;
     }
+
+    days.forEach((day) => {
+      const cell = document.createElement('span');
+      cell.dataset.level = String(Math.max(0, Math.min(4, day.level ?? 0)));
+      cell.title = `${formatDate(day.date)}: ${day.count} ${plural(day.count)}`;
+      grid.append(cell);
+    });
   };
 
   const renderFallback = () => {
@@ -319,28 +310,29 @@ if (githubActivity) {
   };
 
   const loadGithubActivity = async () => {
-    if (!user) return;
     if (summary) summary.textContent = text.loading;
     renderGrid();
 
     try {
-      const eventsResponse = await fetch(`https://api.github.com/users/${encodeURIComponent(user)}/events/public?per_page=60`, {
-        headers: { Accept: 'application/vnd.github+json' }
+      const response = await fetch('/api/github-contributions', {
+        headers: { Accept: 'application/json' }
       });
 
-      if (!eventsResponse.ok) {
-        throw new Error('GitHub API unavailable');
+      if (!response.ok) {
+        throw new Error('Contributions API unavailable');
       }
 
-      const events = await eventsResponse.json();
+      const data = await response.json();
+      const days = Array.isArray(data.days) ? data.days : [];
 
-      const latestEvent = Array.isArray(events) ? events[0] : null;
       if (summary) {
-        const latest = latestEvent ? ` · ${text.latest} ${formatDate(latestEvent.created_at)}` : '';
-        summary.textContent = `${text.sideActivity}${latest}`;
+        summary.textContent =
+          typeof data.total === 'number'
+            ? `${data.total.toLocaleString(locale)} ${text.contributions}`
+            : text.unavailable;
       }
 
-      renderGrid(Array.isArray(events) ? events : []);
+      renderGrid(days);
     } catch {
       renderGrid();
       renderFallback();
