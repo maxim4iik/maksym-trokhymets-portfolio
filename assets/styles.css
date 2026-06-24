@@ -267,25 +267,21 @@ button {
   height: 16px;
 }
 
-.theme-icon-moon {
+/* Three-state toggle: the visible icon reflects the chosen mode
+   (auto / light / dark), driven by data-mode on the button. */
+.theme-icon {
   display: none;
 }
 
-:root[data-theme="dark"] .theme-icon-sun {
-  display: none;
-}
-
-:root[data-theme="dark"] .theme-icon-moon {
+.theme-toggle[data-mode="auto"] .theme-icon-auto,
+.theme-toggle[data-mode="light"] .theme-icon-sun,
+.theme-toggle[data-mode="dark"] .theme-icon-moon {
   display: block;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-icon-sun {
-    display: none;
-  }
-  :root:not([data-theme="light"]) .theme-icon-moon {
-    display: block;
-  }
+/* Before JS sets data-mode, show the auto icon as the default. */
+.theme-toggle:not([data-mode]) .theme-icon-auto {
+  display: block;
 }
 
 .language-switch {

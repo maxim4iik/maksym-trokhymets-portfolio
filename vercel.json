@@ -37,11 +37,11 @@
       ]
     },
     {
-      "source": "/((?!assets/|images/|files/|previews/).*)",
+      "source": "/((?!assets/|images/|files/|previews/|api/).*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; font-src 'self' data:; connect-src 'self' https://api.github.com; frame-src https:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://avatars.githubusercontent.com data:; font-src 'self' data:; connect-src 'self'; frame-src https:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'"
         },
         {
           "key": "Cache-Control",
