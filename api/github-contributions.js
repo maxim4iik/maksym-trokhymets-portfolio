@@ -29,7 +29,8 @@ export default async function handler(req, res) {
         "Content-Type": "application/json",
         "User-Agent": "maksym-trokhymets-portfolio"
       },
-      body: JSON.stringify({ query })
+      body: JSON.stringify({ query }),
+      signal: AbortSignal.timeout(8000)
     });
 
     if (!gh.ok) {

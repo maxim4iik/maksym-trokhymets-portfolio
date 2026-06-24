@@ -272,7 +272,8 @@ if (githubActivity) {
       : 'Activity is temporarily unavailable.',
     contributions: isUa ? 'контрибуцій за рік' : 'contributions in the last year',
     contribOne: isUa ? 'контрибуція' : 'contribution',
-    contribFew: isUa ? 'контрибуції' : 'contributions'
+    contribFew: isUa ? 'контрибуції' : 'contributions',
+    contribMany: isUa ? 'контрибуцій' : 'contributions'
   };
 
   const formatDate = (value) => {
@@ -280,7 +281,14 @@ if (githubActivity) {
     return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'short' }).format(new Date(`${value}T00:00:00`));
   };
 
-  const plural = (n) => (n === 1 ? text.contribOne : text.contribFew);
+  const plural = (n) => {
+    if (!isUa) return n === 1 ? text.contribOne : text.contribFew;
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return text.contribOne;
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return text.contribFew;
+    return text.contribMany;
+  };
 
   // Render exactly the days the API returns (last 42), oldest → newest.
   const renderGrid = (days = []) => {
