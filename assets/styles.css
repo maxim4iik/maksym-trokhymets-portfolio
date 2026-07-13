@@ -799,6 +799,8 @@ button {
 
 .company-ukrposhta img {
   padding: 5px;
+  border-radius: 0;
+  clip-path: none;
 }
 
 .company-karavan {
