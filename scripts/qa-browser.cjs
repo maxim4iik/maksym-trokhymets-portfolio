@@ -210,6 +210,8 @@ async function mockLivePreviews(page) {
   });
   await page.waitForTimeout(240);
   await page.screenshot({ path: path.join(outDir, 'github-calendar.png'), fullPage: false });
+  await page.locator('.site-footer a[href="#top"]').click();
+  await page.waitForFunction(() => window.scrollY < 2, null, { timeout: 2500 });
   await page.close();
 
   const mobileCasePage = await browser.newPage({ viewport: { width: 390, height: 920 } });

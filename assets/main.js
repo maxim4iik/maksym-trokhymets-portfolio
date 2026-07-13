@@ -88,7 +88,9 @@ const setupSmoothAnchorScroll = () => {
     event.preventDefault();
 
     const margin = Number.parseFloat(window.getComputedStyle(targetElement).scrollMarginTop) || 0;
-    const nextY = targetElement.getBoundingClientRect().top + window.scrollY - margin;
+    const nextY = id === 'top'
+      ? 0
+      : targetElement.getBoundingClientRect().top + window.scrollY - margin;
     window.scrollTo({ top: nextY, behavior: 'smooth' });
     history.pushState(null, '', url.hash);
   });
