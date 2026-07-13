@@ -256,14 +256,60 @@ if (previewModal) {
   });
 }
 
+const caseStudyModal = document.querySelector('#ba-case-study');
+
+if (caseStudyModal) {
+  const triggers = document.querySelectorAll('[data-case-open]');
+  const closeButtons = caseStudyModal.querySelectorAll('[data-case-close]');
+  const closeButton = caseStudyModal.querySelector('.preview-close');
+  let lastTrigger = null;
+
+  const closeCaseStudy = () => {
+    caseStudyModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('case-open');
+    if (lastTrigger) lastTrigger.focus();
+  };
+
+  const openCaseStudy = (trigger) => {
+    lastTrigger = trigger;
+    caseStudyModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('case-open');
+    closeButton?.focus();
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => openCaseStudy(trigger));
+  });
+
+  closeButtons.forEach((button) => button.addEventListener('click', closeCaseStudy));
+
+  document.addEventListener('keydown', (event) => {
+    if (caseStudyModal.getAttribute('aria-hidden') !== 'false') return;
+
+    if (event.key === 'Escape') {
+      closeCaseStudy();
+      return;
+    }
+
+    if (event.key === 'Tab' && closeButton) {
+      event.preventDefault();
+      closeButton.focus();
+    }
+  });
+}
+
 const githubActivity = document.querySelector('[data-github-activity]');
 
 if (githubActivity) {
-  const user = githubActivity.dataset.githubUser;
   const grid = githubActivity.querySelector('[data-github-grid]');
+  const months = githubActivity.querySelector('[data-github-months]');
   const summary = githubActivity.querySelector('[data-github-summary]');
+  const detail = githubActivity.querySelector('[data-github-detail]');
+  const calendarScroll = githubActivity.querySelector('[data-github-scroll]');
   const isUa = document.documentElement.lang === 'uk';
   const locale = isUa ? 'uk-UA' : 'en-US';
+  const weekCount = 26;
+  const cellCount = weekCount * 7;
 
   const text = {
     loading: isUa ? 'Завантажую активність...' : 'Loading activity...',
@@ -273,7 +319,8 @@ if (githubActivity) {
     contributions: isUa ? 'контрибуцій за рік' : 'contributions in the last year',
     contribOne: isUa ? 'контрибуція' : 'contribution',
     contribFew: isUa ? 'контрибуції' : 'contributions',
-    contribMany: isUa ? 'контрибуцій' : 'contributions'
+    contribMany: isUa ? 'контрибуцій' : 'contributions',
+    noContributions: isUa ? 'немає контрибуцій' : 'no contributions'
   };
 
   const formatDate = (value) => {
@@ -290,28 +337,132 @@ if (githubActivity) {
     return text.contribMany;
   };
 
-  // Render exactly the days the API returns (last 42), oldest → newest.
+  const describeDay = (day) =>
+    `${formatDate(day.date)}: ${day.count > 0 ? `${day.count} ${plural(day.count)}` : text.noContributions}`;
+
+  const buildCalendarSlots = (days) => {
+    const normalized = days
+      .filter((day) => day?.date)
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    if (normalized.length === 0) return Array(cellCount).fill(null);
+
+    const firstWeekday = new Date(`${normalized[0].date}T12:00:00`).getDay();
+    const slots = [...Array(firstWeekday).fill(null), ...normalized];
+
+    while (slots.length % 7 !== 0) slots.push(null);
+    while (slots.length < cellCount) slots.push(null);
+
+    return slots.slice(-cellCount);
+  };
+
+  const renderMonths = (slots) => {
+    if (!months) return;
+    months.replaceChildren();
+
+    let previousMonth = '';
+
+    for (let week = 0; week < weekCount; week += 1) {
+      const weekDays = slots.slice(week * 7, week * 7 + 7).filter(Boolean);
+      const firstDay = weekDays[0];
+      if (!firstDay) continue;
+
+      const date = new Date(`${firstDay.date}T12:00:00`);
+      const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
+
+      if (week === 0 || monthKey !== previousMonth) {
+        const label = document.createElement('span');
+        label.style.gridColumn = String(week + 1);
+        label.textContent = new Intl.DateTimeFormat(locale, { month: 'short' }).format(date);
+        months.append(label);
+      }
+
+      previousMonth = monthKey;
+    }
+  };
+
+  const focusDay = (button) => {
+    if (!button) return;
+    grid.querySelectorAll('.github-day[tabindex="0"]').forEach((cell) => {
+      cell.tabIndex = -1;
+    });
+    button.tabIndex = 0;
+    button.focus();
+  };
+
   const renderGrid = (days = []) => {
     if (!grid) return;
     grid.replaceChildren();
+    const slots = buildCalendarSlots(days);
 
-    if (days.length === 0) {
-      // Placeholder empties so the grid keeps its shape while loading.
-      for (let i = 0; i < 42; i += 1) {
-        const cell = document.createElement('span');
-        cell.dataset.level = '0';
-        grid.append(cell);
+    slots.forEach((day, slotIndex) => {
+      if (!day) {
+        const empty = document.createElement('span');
+        empty.className = 'github-day is-empty';
+        empty.setAttribute('aria-hidden', 'true');
+        grid.append(empty);
+        return;
       }
-      return;
-    }
 
-    days.forEach((day) => {
-      const cell = document.createElement('span');
+      const cell = document.createElement('button');
+      const description = describeDay(day);
+      cell.type = 'button';
+      cell.className = 'github-day';
       cell.dataset.level = String(Math.max(0, Math.min(4, day.level ?? 0)));
-      cell.title = `${formatDate(day.date)}: ${day.count} ${plural(day.count)}`;
+      cell.dataset.slot = String(slotIndex);
+      cell.title = description;
+      cell.setAttribute('role', 'gridcell');
+      cell.setAttribute('aria-label', description);
+      cell.tabIndex = -1;
+      cell.addEventListener('mouseenter', () => {
+        if (detail) detail.textContent = description;
+      });
+      cell.addEventListener('focus', () => {
+        if (detail) detail.textContent = description;
+      });
+      cell.addEventListener('click', () => {
+        if (detail) detail.textContent = description;
+      });
       grid.append(cell);
     });
+
+    renderMonths(slots);
+
+    const dayButtons = Array.from(grid.querySelectorAll('.github-day:not(.is-empty)'));
+    const latestDay = dayButtons.at(-1);
+    if (latestDay) {
+      latestDay.tabIndex = 0;
+      if (detail) detail.textContent = latestDay.getAttribute('aria-label');
+    }
+
+    if (calendarScroll) {
+      calendarScroll.scrollLeft = window.matchMedia('(max-width: 620px)').matches
+        ? calendarScroll.scrollWidth
+        : 0;
+    }
   };
+
+  grid?.addEventListener('keydown', (event) => {
+    const current = event.target.closest('.github-day[data-slot]');
+    if (!current) return;
+
+    const slot = Number(current.dataset.slot);
+    const offsets = { ArrowLeft: -7, ArrowRight: 7, ArrowUp: -1, ArrowDown: 1 };
+    let target = null;
+
+    if (event.key in offsets) {
+      target = grid.querySelector(`.github-day[data-slot="${slot + offsets[event.key]}"]`);
+    } else if (event.key === 'Home') {
+      target = grid.querySelector('.github-day[data-slot]');
+    } else if (event.key === 'End') {
+      target = Array.from(grid.querySelectorAll('.github-day[data-slot]')).at(-1);
+    }
+
+    if (target) {
+      event.preventDefault();
+      focusDay(target);
+    }
+  });
 
   const renderFallback = () => {
     if (summary) summary.textContent = text.unavailable;

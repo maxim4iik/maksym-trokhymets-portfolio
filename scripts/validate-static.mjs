@@ -29,7 +29,9 @@ for (const page of pages) {
     ['language alternate links', /rel="alternate"/],
     ['main landmark', /<main/],
     ['timeline section', /id="timeline"/],
+    ['BA case study', /id="ba-case-study"/],
     ['website gallery', /id="websites"/],
+    ['26-week GitHub calendar', /data-github-months/],
     ['contact section', /id="contact"/]
   ];
 

@@ -9,9 +9,10 @@ Bilingual personal portfolio for **Maksym Trokhymets**, a business analyst with 
 ## What's on the site
 
 - Chronological **timeline** of roles (Ukrposhta → Karavan → Oskar Cinemas) with sticky markers and a vertical scroll progress indicator.
+- An anonymized **BA case study** that opens from the Ukrposhta timeline entry and shows problem framing, analysis, prototyping, and delivery outcome without exposing internal details.
 - **Selected websites** gallery with in-page iframe previews and graceful fallback to captured screenshots for domains that block embedding.
 - **Education + Languages** sourced from the CV (KPI Igor Sikorsky, Master's + Bachelor's; EN C1/C2 and DE B1/B2 with certificate links).
-- **GitHub activity** widget pulling public events for `@maxim4iik`.
+- **GitHub contribution calendar** for `@maxim4iik`: a real annual total plus the latest 26 weeks, month labels, daily counts, and keyboard navigation. Private contribution counts are included without exposing repository details.
 - Downloadable CV (PDF) and direct contact links.
 
 ## Engineering notes

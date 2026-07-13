@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260713-darkgrid">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260713-case-calendar">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20260713-darkgrid" defer></script>
+    <script src="/assets/main.js?v=20260713-case-calendar" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -197,6 +197,10 @@
                 <li>Figma-прототипи за брендбуком стали фінальним UI без окремого дизайнера.</li>
                 <li>Інтеграції ERP: Jira Service Management REST API, Kafka, Moodle.</li>
               </ul>
+              <button class="case-study-trigger" type="button" data-case-open>
+                Переглянути BA-кейс
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </article>
 
@@ -237,6 +241,57 @@
           </article>
         </div>
       </section>
+
+      <div class="case-study-modal" id="ba-case-study" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="case-study-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Вибраний BA-кейс · анонімізовано</p>
+              <h2 id="case-study-title">Як перетворити шлях звернення працівника на готовий до розробки продуктовий процес.</h2>
+              <p>Публічно безпечний кейс із роботи над національним employee self-service продуктом. Внутрішню архітектуру, ідентифікатори та бізнес-правила навмисно не розкрито.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Закрити кейс" data-case-close>Закрити</button>
+          </header>
+
+          <div class="case-study-body">
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Проблема</h3>
+                  <p>Працівникам був потрібен один передбачуваний шлях звернення через мобільний інтерфейс і service-management платформу, а продукт мав врахувати різні контексти запиту, вкладення, статуси та помилкові сценарії.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Аналіз</h3>
+                  <p>Я змоделював ролі, точки входу, стани, винятки та передачу відповідальності; відокремив користувацькі рішення від інтеграційних правил і звів змінні поля каталогу та валідацію в цілісний процес.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Прототип і delivery</h3>
+                  <p>Процесна модель стала логікою екранів, Figma-прототипами, acceptance rules і чітким розподілом API-відповідальності з описаними помилками та fallback-сценаріями для mobile і backend.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Результат</p>
+              <h3>Єдина схема рішень для продукту, mobile і backend.</h3>
+              <ul>
+                <li>Acceptance rules і винятки стали тестованими до початку реалізації.</li>
+                <li>Приховані продуктові рішення були винесені на обговорення до розробки.</li>
+                <li>Структуру можна повторно використовувати для наступних employee-service процесів.</li>
+              </ul>
+              <p class="case-study-signal">Демонструє: requirements engineering · process modeling · UI logic · integration analysis</p>
+            </aside>
+          </div>
+        </section>
+      </div>
 
       <section class="bridge" id="bridge">
         <div class="bridge-inner">
@@ -450,7 +505,7 @@
           <div class="github-copy" data-reveal>
             <p class="overline">GitHub активність</p>
             <h2>Паралельно працюю над side-проєктами.</h2>
-            <p>Окрім основної роботи, збираю невеликі продукти, інструменти й технічні експерименти. Більшість репозиторіїв приватні, тож тут — сама активність контрибуцій: щоденні лічильники за останній рік, без деталей репозиторіїв.</p>
+            <p>Окрім основної роботи, збираю невеликі продукти, інструменти й технічні експерименти. Більшість репозиторіїв приватні, тому загальна цифра охоплює рік, а календар показує останні 26 тижнів — без деталей репозиторіїв.</p>
             <a class="github-profile-link" href="https://github.com/maxim4iik" target="_blank" rel="noreferrer">
               <span>github.com/maxim4iik</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -465,7 +520,18 @@
                 <span data-github-summary>Завантажую публічну активність...</span>
               </div>
             </div>
-            <div class="github-contrib" data-github-grid aria-label="Остання публічна активність GitHub"></div>
+            <div class="github-calendar">
+              <div class="github-calendar-scroll" data-github-scroll tabindex="0" aria-label="Календар контрибуцій за останні 26 тижнів">
+                <div class="github-calendar-track">
+                  <div class="github-months" data-github-months aria-hidden="true"></div>
+                  <div class="github-contrib" data-github-grid role="grid" aria-label="Щоденні GitHub-контрибуції за останні 26 тижнів"></div>
+                </div>
+              </div>
+              <div class="github-calendar-meta">
+                <span>Останні 26 тижнів</span>
+                <output data-github-detail aria-live="polite">Наведіть, торкніться або сфокусуйте день для деталей.</output>
+              </div>
+            </div>
           </div>
         </div>
       </section>

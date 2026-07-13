@@ -1,5 +1,5 @@
 // Serverless function: returns the real GitHub contribution calendar
-// (last 42 days) using GraphQL. Runs server-side so the token never
+// (last 26 calendar weeks) using GraphQL. Runs server-side so the token never
 // reaches the client. Includes private contributions because the token
 // belongs to the profile owner (viewer).
 export default async function handler(req, res) {
@@ -46,8 +46,8 @@ export default async function handler(req, res) {
       return;
     }
 
-    const allDays = cal.weeks.flatMap((w) => w.contributionDays);
-    const last42 = allDays.slice(-42).map((d) => ({
+    const recentWeeks = cal.weeks.slice(-26);
+    const recentDays = recentWeeks.flatMap((w) => w.contributionDays).map((d) => ({
       date: d.date,
       count: d.contributionCount,
       level: bucket(d.contributionCount)
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
 
     // Cache at the edge for an hour — the graph only changes a few times a day.
     res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=86400");
-    res.status(200).json({ total: cal.totalContributions, days: last42 });
+    res.status(200).json({ total: cal.totalContributions, days: recentDays });
   } catch (err) {
     res.status(502).json({ error: "Fetch failed" });
   }

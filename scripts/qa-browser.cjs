@@ -50,48 +50,23 @@ async function waitForImages(page) {
 }
 
 async function mockGithub(page) {
-  await page.route(/https:\/\/api\.github\.com\/users\/maxim4iik\/repos.*/, async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify([
-        {
-          name: 'portfolio-mini-build',
-          description: 'Small public build for portfolio experiments.',
-          html_url: 'https://github.com/maxim4iik/portfolio-mini-build',
-          language: 'JavaScript',
-          updated_at: '2026-06-07T10:00:00Z',
-          private: false
-        },
-        {
-          name: 'requirements-toolkit',
-          description: 'Notes and tools around requirements work.',
-          html_url: 'https://github.com/maxim4iik/requirements-toolkit',
-          language: 'HTML',
-          updated_at: '2026-06-05T10:00:00Z',
-          private: false
-        }
-      ])
-    });
+  const end = new Date('2026-07-13T12:00:00Z');
+  const days = Array.from({ length: 182 }, (_, index) => {
+    const date = new Date(end);
+    date.setUTCDate(end.getUTCDate() - (181 - index));
+    const count = index % 9 === 0 ? 6 : index % 4 === 0 ? 2 : 0;
+    return {
+      date: date.toISOString().slice(0, 10),
+      count,
+      level: count >= 5 ? 3 : count > 0 ? 1 : 0
+    };
   });
 
-  await page.route(/https:\/\/api\.github\.com\/users\/maxim4iik\/events\/public.*/, async (route) => {
+  await page.route('http://127.0.0.1:4173/api/github-contributions', async (route) => {
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify([
-        { created_at: '2026-06-07T12:00:00Z' },
-        { created_at: '2026-06-07T13:00:00Z' },
-        { created_at: '2026-06-05T12:00:00Z' }
-      ])
-    });
-  });
-
-  await page.route('https://api.github.com/users/maxim4iik', async (route) => {
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ public_repos: 12 })
+      body: JSON.stringify({ total: 122, days })
     });
   });
 
@@ -115,7 +90,11 @@ async function mockLivePreviews(page) {
 }
 
 (async () => {
-  const browser = await chromium.launch({ headless: true });
+  const systemChrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  const launchOptions = { headless: true };
+  if (fs.existsSync(systemChrome)) launchOptions.executablePath = systemChrome;
+
+  const browser = await chromium.launch(launchOptions);
   const errors = [];
 
   for (const [name, url, viewport] of [
@@ -148,8 +127,13 @@ async function mockLivePreviews(page) {
     await assertVisible(page, '#contact', `${name} contact`);
     await page.waitForFunction(() => {
       const summary = document.querySelector('#github [data-github-summary]');
-      return summary && /side-project|side-проєкт/.test(summary.textContent);
+      return summary && /122/.test(summary.textContent);
     }, null, { timeout: 2500 });
+    const contributionCellCount = await page.locator('#github .github-day').count();
+    if (contributionCellCount !== 182) {
+      throw new Error(`${name}: expected 182 contribution cells, got ${contributionCellCount}`);
+    }
+    await assertVisible(page, '#github [data-github-months] span', `${name} GitHub month labels`);
     const repoCardCount = await page.locator('#github .github-repo').count();
     if (repoCardCount !== 0) {
       throw new Error(`${name}: GitHub repo cards should not render`);
@@ -198,7 +182,7 @@ async function mockLivePreviews(page) {
   await waitForImages(page);
   await page.waitForTimeout(900);
   await page.screenshot({ path: path.join(outDir, 'preview-modal.png'), fullPage: false });
-  await page.click('.preview-close');
+  await page.click('#site-preview .preview-close');
   await page.waitForSelector('#site-preview[aria-hidden="true"]', { timeout: 1500 });
   await page.waitForTimeout(260);
 
@@ -208,9 +192,58 @@ async function mockLivePreviews(page) {
   await assertVisible(page, '#site-preview [data-preview-note]', 'snapshot fallback note');
   await page.waitForTimeout(320);
   await page.screenshot({ path: path.join(outDir, 'preview-fallback.png'), fullPage: false });
-  await page.click('.preview-close');
+  await page.click('#site-preview .preview-close');
   await page.waitForSelector('#site-preview[aria-hidden="true"]', { timeout: 1500 });
+
+  await page.click('[data-case-open]');
+  await page.waitForSelector('#ba-case-study[aria-hidden="false"]', { timeout: 1500 });
+  await assertVisible(page, '#ba-case-study .case-study-flow', 'BA case study flow');
+  await assertVisible(page, '#ba-case-study .case-study-outcome', 'BA case study outcome');
+  await page.waitForTimeout(240);
+  await page.screenshot({ path: path.join(outDir, 'case-study-modal.png'), fullPage: false });
+  await page.click('#ba-case-study .preview-close');
+  await page.waitForSelector('#ba-case-study[aria-hidden="true"]', { timeout: 1500 });
+
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.querySelector('#github')?.scrollIntoView({ block: 'center' });
+  });
+  await page.waitForTimeout(240);
+  await page.screenshot({ path: path.join(outDir, 'github-calendar.png'), fullPage: false });
   await page.close();
+
+  const mobileCasePage = await browser.newPage({ viewport: { width: 390, height: 920 } });
+  await mockGithub(mobileCasePage);
+  await mobileCasePage.goto('http://127.0.0.1:4173/ua/', { waitUntil: 'domcontentloaded', timeout: 12000 });
+  await mobileCasePage.click('[data-case-open]');
+  await mobileCasePage.waitForSelector('#ba-case-study[aria-hidden="false"]', { timeout: 1500 });
+  await mobileCasePage.waitForTimeout(240);
+  await mobileCasePage.screenshot({ path: path.join(outDir, 'case-study-mobile.png'), fullPage: false });
+  await mobileCasePage.click('#ba-case-study .preview-close');
+  await mobileCasePage.waitForSelector('#ba-case-study[aria-hidden="true"]', { timeout: 1500 });
+  await mobileCasePage.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.querySelector('#github')?.scrollIntoView({ block: 'start' });
+  });
+  await mobileCasePage.waitForTimeout(240);
+  await mobileCasePage.screenshot({ path: path.join(outDir, 'github-calendar-mobile.png'), fullPage: false });
+  await mobileCasePage.close();
+
+  const darkPage = await browser.newPage({ viewport: { width: 1280, height: 900 }, colorScheme: 'dark' });
+  await mockGithub(darkPage);
+  await darkPage.goto('http://127.0.0.1:4173/', { waitUntil: 'domcontentloaded', timeout: 12000 });
+  await darkPage.click('[data-case-open]');
+  await darkPage.waitForSelector('#ba-case-study[aria-hidden="false"]', { timeout: 1500 });
+  await darkPage.waitForTimeout(240);
+  await darkPage.screenshot({ path: path.join(outDir, 'case-study-dark.png'), fullPage: false });
+  await darkPage.click('#ba-case-study .preview-close');
+  await darkPage.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.querySelector('#github')?.scrollIntoView({ block: 'center' });
+  });
+  await darkPage.waitForTimeout(240);
+  await darkPage.screenshot({ path: path.join(outDir, 'github-calendar-dark.png'), fullPage: false });
+  await darkPage.close();
 
   await browser.close();
 

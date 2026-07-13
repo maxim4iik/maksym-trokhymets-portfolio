@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260713-darkgrid">
+    <link rel="stylesheet" href="/assets/styles.css?v=20260713-case-calendar">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20260713-darkgrid" defer></script>
+    <script src="/assets/main.js?v=20260713-case-calendar" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -196,6 +196,10 @@
                 <li>Brand-compliant Figma prototypes became final UI without a separate designer.</li>
                 <li>ERP integrations: Jira Service Management REST API, Kafka, Moodle.</li>
               </ul>
+              <button class="case-study-trigger" type="button" data-case-open>
+                View selected BA case
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </article>
 
@@ -236,6 +240,57 @@
           </article>
         </div>
       </section>
+
+      <div class="case-study-modal" id="ba-case-study" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="case-study-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Selected BA case · anonymized</p>
+              <h2 id="case-study-title">Turning an employee support journey into a delivery-ready product flow.</h2>
+              <p>A public-safe case drawn from work on a national employee self-service product. Internal architecture, identifiers, and business rules are intentionally omitted.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Close case study" data-case-close>Close</button>
+          </header>
+
+          <div class="case-study-body">
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Problem</h3>
+                  <p>Employees needed one predictable support journey across a mobile interface and a service-management platform, while the product had to handle different request contexts, attachments, statuses, and failure states.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Analysis</h3>
+                  <p>I mapped actors, entry points, states, exceptions, and handoffs; separated user-facing decisions from integration rules; and turned variable catalog fields and validation into one coherent flow.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Prototype and delivery</h3>
+                  <p>The process map became screen logic, Figma prototypes, acceptance rules, and clear API responsibilities with defined errors and fallbacks for mobile and backend delivery.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Outcome</p>
+              <h3>One shared blueprint for product, mobile, and backend decisions.</h3>
+              <ul>
+                <li>Acceptance rules and exceptions became testable before implementation.</li>
+                <li>Hidden product decisions were surfaced before development.</li>
+                <li>The structure could be reused for later employee-service flows.</li>
+              </ul>
+              <p class="case-study-signal">Shows: requirements engineering · process modeling · UI logic · integration analysis</p>
+            </aside>
+          </div>
+        </section>
+      </div>
 
       <section class="bridge" id="bridge">
         <div class="bridge-inner">
@@ -449,7 +504,7 @@
           <div class="github-copy" data-reveal>
             <p class="overline">GitHub activity</p>
             <h2>Side projects keep the practice sharp.</h2>
-            <p>Outside the main work, I keep building small product ideas, tools, and technical experiments. Most repositories stay private, so this is the contribution activity itself — daily counts over the last year, not repo details.</p>
+            <p>Outside the main work, I keep building small product ideas, tools, and technical experiments. Most repositories stay private, so the total reflects the last year while the calendar shows the latest 26 weeks — without repo details.</p>
             <a class="github-profile-link" href="https://github.com/maxim4iik" target="_blank" rel="noreferrer">
               <span>github.com/maxim4iik</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -464,7 +519,18 @@
                 <span data-github-summary>Loading public activity...</span>
               </div>
             </div>
-            <div class="github-contrib" data-github-grid aria-label="Recent public GitHub event activity"></div>
+            <div class="github-calendar">
+              <div class="github-calendar-scroll" data-github-scroll tabindex="0" aria-label="Contribution calendar for the last 26 weeks">
+                <div class="github-calendar-track">
+                  <div class="github-months" data-github-months aria-hidden="true"></div>
+                  <div class="github-contrib" data-github-grid role="grid" aria-label="Daily GitHub contributions for the last 26 weeks"></div>
+                </div>
+              </div>
+              <div class="github-calendar-meta">
+                <span>Last 26 weeks</span>
+                <output data-github-detail aria-live="polite">Hover, tap, or focus a day for details.</output>
+              </div>
+            </div>
           </div>
         </div>
       </section>
