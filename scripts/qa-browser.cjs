@@ -124,6 +124,11 @@ async function mockLivePreviews(page) {
     await assertVisible(page, '#websites button[data-preview-image]', `${name} website gallery`);
     await assertVisible(page, '#github [data-github-summary]', `${name} GitHub activity`);
     await assertVisible(page, '#contact .contact-icon-button', `${name} contact icon actions`);
+    const contactActionCount = await page.locator('#contact .contact-icon-button').count();
+    if (contactActionCount !== 5) {
+      throw new Error(`${name}: expected 5 contact actions, found ${contactActionCount}`);
+    }
+    await assertVisible(page, '#contact a[href="https://www.linkedin.com/in/trokhymets-maksym/"]', `${name} LinkedIn action`);
     await assertVisible(page, '#contact', `${name} contact`);
     await page.waitForFunction(() => {
       const summary = document.querySelector('#github [data-github-summary]');
