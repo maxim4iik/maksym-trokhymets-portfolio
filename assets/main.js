@@ -191,6 +191,19 @@ if (previewModal) {
   const previewTriggers = document.querySelectorAll('button[data-preview-image]');
   let lastTrigger = null;
 
+  const isUa = document.documentElement.lang === 'uk';
+  const previewText = {
+    altSuffix: isUa ? 'прев’ю сайту' : 'website preview',
+    iframeSuffix: isUa ? 'live-прев’ю сайту' : 'live website preview',
+    modeLive: isUa
+      ? 'Live-прев’ю всередині сторінки — гортайте всередині'
+      : 'Live embedded preview - scroll inside',
+    modeSnapshot: isUa ? 'Збережений preview' : 'Captured preview',
+    noteFallback: isUa
+      ? 'Live-embed для цього проєкту недоступний, тому тут показано збережений preview.'
+      : 'Live embedding is unavailable for this project, so this portfolio shows a captured preview.'
+  };
+
   const closePreview = () => {
     previewModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('preview-open');
@@ -215,22 +228,22 @@ if (previewModal) {
     previewYear.hidden = !year;
     previewDomain.textContent = domain;
     previewImage.src = image;
-    previewImage.alt = `${title} website preview`;
+    previewImage.alt = `${title} ${previewText.altSuffix}`;
 
     if (canEmbed) {
       previewIframe.hidden = false;
-      previewIframe.title = `${title} live website preview`;
+      previewIframe.title = `${title} ${previewText.iframeSuffix}`;
       previewIframe.src = url;
       previewSnapshot.hidden = true;
-      previewMode.textContent = 'Live embedded preview - scroll inside';
+      previewNote.textContent = '';
+      previewMode.textContent = previewText.modeLive;
     } else {
       previewIframe.hidden = true;
       previewIframe.src = 'about:blank';
       previewSnapshot.hidden = false;
       previewNote.textContent =
-        trigger.dataset.previewNote ||
-        'Live embedding is unavailable for this project, so this portfolio shows a captured preview.';
-      previewMode.textContent = 'Captured preview';
+        trigger.dataset.previewNote || previewText.noteFallback;
+      previewMode.textContent = previewText.modeSnapshot;
     }
 
     if (url) {

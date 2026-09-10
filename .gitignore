@@ -7,3 +7,4 @@ tmp/
 previews/*.png
 *.log
 .claude/
+Icon?
