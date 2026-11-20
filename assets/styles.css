@@ -1321,6 +1321,7 @@ button {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transition: opacity 180ms ease, visibility 0s;
 }
 
 .preview-backdrop {
@@ -1567,6 +1568,52 @@ button {
   margin-left: auto;
   color: var(--accent);
   font-weight: 760;
+}
+
+.preview-case {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.preview-case[hidden] {
+  display: none;
+}
+
+.preview-case:not([hidden]) + a {
+  margin-left: 0;
+}
+
+.preview-case svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 180ms ease;
+}
+
+.preview-case:hover svg,
+.preview-case:focus-visible svg {
+  transform: translateX(3px);
+}
+
+.case-figure {
+  margin: 1.1rem 0 0;
+}
+
+.case-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
 }
 
 .github-section {
@@ -2232,7 +2279,8 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .preview-meta a {
+  .preview-meta a,
+  .preview-case {
     margin-left: 0;
   }
 

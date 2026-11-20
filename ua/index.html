@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260713-logo-mask-fix">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261120-kuzovok-case">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20260910-kyiv-agency" defer></script>
+    <script src="/assets/main.js?v=20261120-kuzovok-case" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -196,8 +196,10 @@
                 <li>30+ технічних завдань за рік, більшість уже в продакшені.</li>
                 <li>Figma-прототипи за брендбуком стали фінальним UI без окремого дизайнера.</li>
                 <li>Інтеграції ERP: Jira Service Management REST API, Kafka, Moodle.</li>
+                <li>Власні інструменти: дашборд заявок із Jira та Redmine з Excel-звітом для команди.</li>
+                <li>AI-рев’ю ТЗ перед передачею: шукає поля й API без джерела, непозначені open questions і нетестовані вимоги.</li>
               </ul>
-              <button class="case-study-trigger" type="button" data-case-open>
+              <button class="case-study-trigger" type="button" data-case-open="ba-case-study">
                 Переглянути BA-кейс
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
@@ -414,7 +416,7 @@
             </div>
           </button>
 
-          <button class="site-card large" type="button" data-preview-title="Kuzovok" data-preview-role="Сайт, тема і шрифт" data-preview-status="Live" data-preview-year="2023 - дотепер" data-preview-domain="kuzovok.kyiv.ua" data-preview-url="https://www.kuzovok.kyiv.ua/" data-preview-embed="true" data-preview-image="/previews/kuzovok-kyiv-ua.webp?v=20260930" data-preview-summary="Сайт кузовного ремонту, який я веду з 2023 року. У 2026-му переніс його на власну WordPress-тему з деплоєм через CI і шрифти Kuzov Display та Kuzov Text — фірмову сім’ю, яку я спроєктував для СТО." data-reveal>
+          <button class="site-card large" type="button" data-preview-title="Kuzovok" data-preview-case="kuzovok-case" data-preview-role="Сайт, тема і шрифт" data-preview-status="Live" data-preview-year="2023 - дотепер" data-preview-domain="kuzovok.kyiv.ua" data-preview-url="https://www.kuzovok.kyiv.ua/" data-preview-embed="true" data-preview-image="/previews/kuzovok-kyiv-ua.webp?v=20260930" data-preview-summary="Сайт кузовного ремонту, який я веду з 2023 року. У 2026-му переніс його на власну WordPress-тему з деплоєм через CI і шрифти Kuzov Display та Kuzov Text — фірмову сім’ю, яку я спроєктував для СТО." data-reveal>
             <span class="preview-link">
               <img src="/previews/kuzovok-kyiv-ua.webp?v=20260930" alt="Прев’ю сайту kuzovok.kyiv.ua" decoding="async" loading="lazy">
             </span>
@@ -423,7 +425,7 @@
               <h3>Kuzovok</h3>
               <span class="domain">kuzovok.kyiv.ua</span>
               <span class="site-year">2023 - дотепер</span>
-              <span class="card-action">Відкрити прев’ю</span>
+              <span class="card-action">Прев’ю і кейс</span>
             </div>
           </button>
 
@@ -521,7 +523,62 @@
             <span data-preview-year></span>
             <span data-preview-domain></span>
             <span data-preview-mode></span>
+            <button class="preview-case" type="button" data-preview-case hidden>Читати кейс <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <a href="#" target="_blank" rel="noreferrer" data-preview-url>Відкрити live-сайт</a>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="kuzovok-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="kuzovok-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Клієнтський кейс · СТО КузовОК, Київ</p>
+              <h2 id="kuzovok-case-title">Від сайту — до інструментів, на яких працює СТО.</h2>
+              <p>Сайт КузовОК я веду з 2023 року. У 2026-му робота вийшла за межі сайту: фірмова шрифтова сім’я і застосунки, побудовані навколо того, як насправді працюють власник і бухгалтер.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Закрити кейс" data-case-close>Закрити</button>
+          </header>
+
+          <div class="case-study-body">
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Сайт</h3>
+                  <p>Власна WordPress-тема замінила збірку на Elementor: слайдери «до/після», схема авто, що складає заявку на ремонт для месенджера, і стрічка Instagram без плагінів. Кожен пуш проходить перевірку коду й smoke-тест у WordPress Playground, деплоїться і звіряється з живим сайтом.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Шрифт</h3>
+                  <p>Kuzov Display бере пропорції з концепту вивіски СТО: Black Italic, нахил 15°, гострі шпори. Kuzov Text — спокійніша пара для основного тексту. Обидві сім’ї мають кирилицю й латиницю, виходять змінними шрифтами і генеруються з параметричного коду на Python, а для виробника вивіски є експорт у SVG, PDF і DXF.</p>
+                  <figure class="case-figure">
+                    <img src="/images/kuzov-type-specimen.webp?v=20261120" alt="Зразок шрифтів Kuzov Display і Kuzov Text: емблема й напис КузовОК, кирилиця з цифрами і зразок тексту в трьох накресленнях." width="1200" height="540" loading="lazy" decoding="async">
+                  </figure>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Інструменти власника й бухгалтера</h3>
+                  <p>Витрати СТО велися в Excel-книзі, яку веде бухгалтер, тож саме вона лишилась форматом: Mac-застосунок перераховує її формули, імпортує й експортує без втрат. Власник отримує застосунок для iPhone і Mac з авто за номером чи VIN, роботами з таймером на кожного майстра, запчастинами, оплатами, Live Activities, графіком відключень і рівнем тривоги в Києві, усе синхронізується через Supabase, а Telegram-бот перетворює звичайні повідомлення на записи.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Результат</p>
+              <h3>Один бренд і одне джерело правди для малого бізнесу.</h3>
+              <ul>
+                <li>Бухгалтер працює у звичній книзі: імпорт і експорт проходять без втрати жодної формули.</li>
+                <li>Власник стежить за авто, роботами й оплатами з телефона, Mac або повідомленням у чаті.</li>
+                <li>Сайт, застосунки і файли вивіски мають один шрифт.</li>
+              </ul>
+              <p class="case-study-signal">Демонструє: process analysis · product scoping · iOS і macOS · backend · type design</p>
+            </aside>
           </div>
         </section>
       </div>

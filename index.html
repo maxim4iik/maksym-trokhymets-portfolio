@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20260713-logo-mask-fix">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261120-kuzovok-case">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20260910-kyiv-agency" defer></script>
+    <script src="/assets/main.js?v=20261120-kuzovok-case" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -195,8 +195,10 @@
                 <li>30+ technical specs in a year, most already shipped.</li>
                 <li>Brand-compliant Figma prototypes became final UI without a separate designer.</li>
                 <li>ERP integrations: Jira Service Management REST API, Kafka, Moodle.</li>
+                <li>Own tooling: a Jira + Redmine ticket dashboard with an Excel report for the team.</li>
+                <li>An AI-assisted review pass checks specs for unsourced fields and APIs, open questions, and untestable requirements before hand-off.</li>
               </ul>
-              <button class="case-study-trigger" type="button" data-case-open>
+              <button class="case-study-trigger" type="button" data-case-open="ba-case-study">
                 View selected BA case
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
@@ -413,7 +415,7 @@
             </div>
           </button>
 
-          <button class="site-card large" type="button" data-preview-title="Kuzovok" data-preview-role="Site, theme &amp; typeface" data-preview-status="Live" data-preview-year="2023 - Present" data-preview-domain="kuzovok.kyiv.ua" data-preview-url="https://www.kuzovok.kyiv.ua/" data-preview-embed="true" data-preview-image="/previews/kuzovok-kyiv-ua.webp?v=20260930" data-preview-summary="An auto body shop site I have run since 2023. In 2026 I rebuilt it on my own WordPress theme with CI deploys and set it in Kuzov Display and Kuzov Text, a brand type family I designed for the shop." data-reveal>
+          <button class="site-card large" type="button" data-preview-title="Kuzovok" data-preview-case="kuzovok-case" data-preview-role="Site, theme &amp; typeface" data-preview-status="Live" data-preview-year="2023 - Present" data-preview-domain="kuzovok.kyiv.ua" data-preview-url="https://www.kuzovok.kyiv.ua/" data-preview-embed="true" data-preview-image="/previews/kuzovok-kyiv-ua.webp?v=20260930" data-preview-summary="An auto body shop site I have run since 2023. In 2026 I rebuilt it on my own WordPress theme with CI deploys and set it in Kuzov Display and Kuzov Text, a brand type family I designed for the shop." data-reveal>
             <span class="preview-link">
               <img src="/previews/kuzovok-kyiv-ua.webp?v=20260930" alt="Website preview for kuzovok.kyiv.ua" decoding="async" loading="lazy">
             </span>
@@ -422,7 +424,7 @@
               <h3>Kuzovok</h3>
               <span class="domain">kuzovok.kyiv.ua</span>
               <span class="site-year">2023 - Present</span>
-              <span class="card-action">Open preview</span>
+              <span class="card-action">Preview &amp; case study</span>
             </div>
           </button>
 
@@ -520,7 +522,62 @@
             <span data-preview-year></span>
             <span data-preview-domain></span>
             <span data-preview-mode></span>
+            <button class="preview-case" type="button" data-preview-case hidden>Read the case study <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             <a href="#" target="_blank" rel="noreferrer" data-preview-url>Open live site</a>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="kuzovok-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="kuzovok-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Client case · KuzovOK body shop, Kyiv</p>
+              <h2 id="kuzovok-case-title">From the shop’s website to the tools it runs on.</h2>
+              <p>I have run the KuzovOK website since 2023. In 2026 the work grew past the site: a brand type family, and apps built around how the owner and the accountant actually work.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Close case study" data-case-close>Close</button>
+          </header>
+
+          <div class="case-study-body">
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Site</h3>
+                  <p>My own WordPress theme replaced the Elementor build: before/after sliders, a car diagram that drafts a repair request for a messenger, and an Instagram feed without plugins. Every push is linted, smoke-tested in WordPress Playground, deployed, and checked against the live site.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Typeface</h3>
+                  <p>Kuzov Display takes its proportions from the shop’s sign concept: Black Italic, a 15° slant, sharp spurs. Kuzov Text is the quieter partner for body copy. Both cover Cyrillic and Latin, ship as variable fonts, and are generated from a parametric Python source, with SVG, PDF and DXF exports for the sign maker.</p>
+                  <figure class="case-figure">
+                    <img src="/images/kuzov-type-specimen.webp?v=20261120" alt="Kuzov Display and Kuzov Text specimen: the KuzovOK emblem and wordmark, the Cyrillic alphabet with figures, and a text sample in three weights." width="1200" height="540" loading="lazy" decoding="async">
+                  </figure>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Owner and accountant tools</h3>
+                  <p>The shop’s costs lived in an Excel workbook kept by the accountant, so that workbook stayed the format: a Mac app recomputes its formulas and imports and exports it without loss. The owner gets an iPhone and Mac app with cars by plate or VIN, works timed per master, parts, payments, Live Activities, and Kyiv outage and air-raid status, all synced through Supabase, plus a Telegram bot that turns plain-Ukrainian messages into records.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Outcome</p>
+              <h3>One brand and one source of truth for a small business.</h3>
+              <ul>
+                <li>The accountant keeps the familiar workbook: import and export round-trip without losing a formula.</li>
+                <li>The owner follows cars, works, and payments from the phone, the Mac, or a chat message.</li>
+                <li>The site, the apps, and the signage files share one typeface.</li>
+              </ul>
+              <p class="case-study-signal">Shows: process analysis · product scoping · iOS &amp; macOS · backend · type design</p>
+            </aside>
           </div>
         </section>
       </div>

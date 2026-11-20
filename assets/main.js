@@ -187,6 +187,7 @@ if (previewModal) {
   const previewDomain = previewModal.querySelector('[data-preview-domain]');
   const previewMode = previewModal.querySelector('[data-preview-mode]');
   const previewUrl = previewModal.querySelector('[data-preview-url]');
+  const previewCase = previewModal.querySelector('[data-preview-case]');
   const closeButtons = previewModal.querySelectorAll('[data-preview-close]');
   const previewTriggers = document.querySelectorAll('button[data-preview-image]');
   let lastTrigger = null;
@@ -204,11 +205,11 @@ if (previewModal) {
       : 'Live embedding is unavailable for this project, so this portfolio shows a captured preview.'
   };
 
-  const closePreview = () => {
+  const closePreview = (restoreFocus = true) => {
     previewModal.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('preview-open');
     if (previewIframe) previewIframe.src = 'about:blank';
-    if (lastTrigger) lastTrigger.focus();
+    if (restoreFocus && lastTrigger) lastTrigger.focus();
   };
 
   const openPreview = (trigger) => {
@@ -253,6 +254,11 @@ if (previewModal) {
       previewUrl.hidden = true;
     }
 
+    if (previewCase) {
+      previewCase.dataset.target = trigger.dataset.previewCase || '';
+      previewCase.hidden = !trigger.dataset.previewCase;
+    }
+
     previewModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('preview-open');
     previewModal.querySelector('.preview-close').focus();
@@ -262,7 +268,13 @@ if (previewModal) {
     trigger.addEventListener('click', () => openPreview(trigger));
   });
 
-  closeButtons.forEach((button) => button.addEventListener('click', closePreview));
+  closeButtons.forEach((button) => button.addEventListener('click', () => closePreview()));
+
+  previewCase?.addEventListener('click', () => {
+    const returnFocus = lastTrigger;
+    closePreview(false);
+    openCaseStudy(previewCase.dataset.target, returnFocus);
+  });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && previewModal.getAttribute('aria-hidden') === 'false') {
@@ -271,47 +283,62 @@ if (previewModal) {
   });
 }
 
-const caseStudyModal = document.querySelector('#ba-case-study');
+let activeCase = null;
+let caseReturnFocus = null;
 
-if (caseStudyModal) {
-  const triggers = document.querySelectorAll('[data-case-open]');
-  const closeButtons = caseStudyModal.querySelectorAll('[data-case-close]');
-  const closeButton = caseStudyModal.querySelector('.preview-close');
-  let lastTrigger = null;
+const closeCaseStudy = () => {
+  if (!activeCase) return;
+  activeCase.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('case-open');
+  activeCase = null;
+  if (caseReturnFocus) caseReturnFocus.focus();
+};
 
-  const closeCaseStudy = () => {
-    caseStudyModal.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('case-open');
-    if (lastTrigger) lastTrigger.focus();
-  };
+const openCaseStudy = (id, returnFocus) => {
+  const modal = document.getElementById(id);
+  if (!modal) return;
+  activeCase = modal;
+  caseReturnFocus = returnFocus || null;
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('case-open');
+  modal.querySelector('.preview-close')?.focus();
+};
 
-  const openCaseStudy = (trigger) => {
-    lastTrigger = trigger;
-    caseStudyModal.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('case-open');
-    closeButton?.focus();
-  };
+document.querySelectorAll('[data-case-open]').forEach((trigger) => {
+  trigger.addEventListener('click', () => openCaseStudy(trigger.dataset.caseOpen, trigger));
+});
 
-  triggers.forEach((trigger) => {
-    trigger.addEventListener('click', () => openCaseStudy(trigger));
-  });
+document.querySelectorAll('.case-study-modal [data-case-close]').forEach((button) => {
+  button.addEventListener('click', closeCaseStudy);
+});
 
-  closeButtons.forEach((button) => button.addEventListener('click', closeCaseStudy));
+document.addEventListener('keydown', (event) => {
+  if (!activeCase) return;
 
-  document.addEventListener('keydown', (event) => {
-    if (caseStudyModal.getAttribute('aria-hidden') !== 'false') return;
+  if (event.key === 'Escape') {
+    closeCaseStudy();
+    return;
+  }
 
-    if (event.key === 'Escape') {
-      closeCaseStudy();
-      return;
-    }
+  if (event.key !== 'Tab') return;
 
-    if (event.key === 'Tab' && closeButton) {
-      event.preventDefault();
-      closeButton.focus();
-    }
-  });
-}
+  const focusable = [...activeCase.querySelectorAll('a[href], button:not([disabled])')].filter(
+    (element) => element.offsetParent !== null
+  );
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  const insideDialog = activeCase.contains(document.activeElement);
+
+  if (!insideDialog || (event.shiftKey && document.activeElement === first)) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
 
 const githubActivity = document.querySelector('[data-github-activity]');
 
