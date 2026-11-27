@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261120-kuzovok-case">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261127-apps">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20261120-kuzovok-case" defer></script>
+    <script src="/assets/main.js?v=20261127-apps" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -88,6 +88,7 @@
         <a href="#bridge">Bridge</a>
         <a href="#background">Background</a>
         <a href="#websites">Selected websites</a>
+        <a href="#apps">Apps</a>
         <a href="#contact">Contact</a>
         <a class="nav-cv" href="/files/cv-maksym-trokhymets.pdf" download>Download CV</a>
         <button class="theme-toggle" type="button" aria-label="Theme: auto (follows device). Click for light" data-theme-toggle>
@@ -555,7 +556,7 @@
                   <h3>Typeface</h3>
                   <p>Kuzov Display takes its proportions from the shop’s sign concept: Black Italic, a 15° slant, sharp spurs. Kuzov Text is the quieter partner for body copy. Both cover Cyrillic and Latin, ship as variable fonts, and are generated from a parametric Python source, with SVG, PDF and DXF exports for the sign maker.</p>
                   <figure class="case-figure">
-                    <img src="/images/kuzov-type-specimen.webp?v=20261120" alt="Kuzov Display and Kuzov Text specimen: the KuzovOK emblem and wordmark, the Cyrillic alphabet with figures, and a text sample in three weights." width="1200" height="540" loading="lazy" decoding="async">
+                    <img data-src="/images/kuzov-type-specimen.webp?v=20261120" alt="Kuzov Display and Kuzov Text specimen: the KuzovOK emblem and wordmark, the Cyrillic alphabet with figures, and a text sample in three weights." width="1200" height="540" decoding="async">
                   </figure>
                 </div>
               </article>
@@ -582,12 +583,245 @@
         </section>
       </div>
 
-      <section class="github-section" id="github">
+      <div class="case-study-modal" id="mediatracker-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="mediatracker-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Own app · iPhone · working title</p>
+              <h2 id="mediatracker-case-title">One library for films, series, books, and games.</h2>
+              <p>A local-first iPhone app I design and build myself. The name is a working title until the product gets its own.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Close case study" data-case-close>Close</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/mediatracker-library.webp?v=20261127" alt="MediaTracker film library grouped by year" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/mediatracker-import.webp?v=20261127" alt="MediaTracker matching an imported list against the catalogue" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/mediatracker-detail.webp?v=20261127" alt="MediaTracker game page with rating and details" width="480" height="1044" decoding="async">
+              <figcaption>Screens on demo data.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Problem</h3>
+                  <p>Ratings and watch history tend to sit in several services at once — IMDb, Letterboxd, Goodreads, TV Time, Simkl — each with its own export format, its own duplicates, and its own idea of a title.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Product decisions</h3>
+                  <p>I treated import as a data migration: every row is matched against the real catalogue, duplicates are merged with the latest activity kept, and anything ambiguous waits in a review step instead of being guessed. The library stays on the phone.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Build</h3>
+                  <p>SwiftUI and SwiftData; artwork from TMDB, Open Library and RAWG with honest offline placeholders; new-episode notifications, calendar export, where to watch in Ukraine, playlists, a Home Screen widget, achievements, and 29 switchable icons.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Outcome</p>
+              <h3>An import a user can trust.</h3>
+              <ul>
+                <li>Nothing is matched silently: ambiguous titles wait for a decision.</li>
+                <li>One library for four media types instead of five apps.</li>
+                <li>Unit and UI tests cover import, merging, and the main flows.</li>
+              </ul>
+              <p class="case-study-signal">Shows: data migration · product scoping · iOS · SwiftUI</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="monolens-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="monolens-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Own app · iPhone</p>
+              <h2 id="monolens-case-title">Personal finance on top of Monobank, with a wishlist that watches prices.</h2>
+              <p>A private iPhone app for my own money. Lens, its wishlist part, started as a separate monitor and is now the same app.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Close case study" data-case-close>Close</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/monolens-overview.webp?v=20261127" alt="MonoLens monthly overview with spending by category" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/monolens-activity.webp?v=20261127" alt="MonoLens transaction feed" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/monolens-budgets.webp?v=20261127" alt="MonoLens budgets with pace warnings and an overrun" width="480" height="1044" decoding="async">
+              <figcaption>Screens on demo data.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Problem</h3>
+                  <p>The bank app shows transactions, not plans: no limits per category, no view of recurring payments, and no link between a planned purchase and the money it will take.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Product decisions</h3>
+                  <p>Transactions come from the Monobank API and imported statements; Claude Haiku suggests categories in batches, with prompt caching to keep the cost down. Lens checks wishlist items in Ukrainian shops every day and records price, stock, and instalment terms, naming a bank only when the shop’s own product data does.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Build</h3>
+                  <p>SwiftUI and SwiftData with workspaces, budgets with pace warnings, recurring-payment detection, a PIN with PBKDF2 and Face ID, and tokens in the Keychain. The wishlist check runs as a scheduled GitHub Actions job.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Outcome</p>
+              <h3>Plans and spending in one place.</h3>
+              <ul>
+                <li>Budgets warn about pace, not just about overruns.</li>
+                <li>A purchase can be matched to its card charge, by suggestion and never automatically.</li>
+                <li>Bank data stays on the phone; the wishlist repository holds only shopping data.</li>
+              </ul>
+              <p class="case-study-signal">Shows: fintech domain · data rules · iOS · AI integration</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="activity-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="activity-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Own app · Mac and iPhone</p>
+              <h2 id="activity-case-title">My working day at a glance: Notion activities and tracker tickets together.</h2>
+              <p>A Mac app with a desktop widget and a menu bar control, plus an iPhone companion. It is the tool I built for my own BA workload.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Close case study" data-case-close>Close</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/activity-today.webp?v=20261127" alt="Activity tracker Today screen with deadlines" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/activity-list.webp?v=20261127" alt="Activity tracker list with status counts" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/activity-issues.webp?v=20261127" alt="Activity tracker tickets mirrored from Jira and Redmine" width="480" height="1044" decoding="async">
+              <figcaption>Screens on demo data.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Problem</h3>
+                  <p>Work lived in three places: a Notion board of activities, Jira, and Redmine. A deadline or a reply on a ticket was easy to miss between them.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Product decisions</h3>
+                  <p>One list ordered by deadline, with today and overdue first. Tickets from both trackers are merged, labelled by my role — created or watching — and mirrored into Notion. Marking an activity done on the widget writes straight back to Notion.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Build</h3>
+                  <p>SwiftUI, WidgetKit, a macOS Control for the menu bar and Control Center, background refresh, and an iPhone app with Live Activities for today’s deadlines. Tokens live in the Keychain.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Outcome</p>
+              <h3>One glance instead of three tabs.</h3>
+              <ul>
+                <li>Today’s and overdue items come first.</li>
+                <li>Done is one click on the widget, and the source updates.</li>
+                <li>Ticket roles show what needs my action and what I only follow.</li>
+              </ul>
+              <p class="case-study-signal">Shows: workflow analysis · integrations · macOS &amp; iOS · WidgetKit</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <section class="github-section apps-section" id="apps">
+        <div class="section-intro" data-reveal>
+          <div class="section-copy">
+            <p class="overline">Apps</p>
+            <p>Native iPhone and Mac apps I design and build on my own. The repositories are private, so each card opens a short case with screens on demo data.</p>
+          </div>
+          <h2>Products I build end to end.</h2>
+        </div>
+
+        <div class="app-cards">
+          <button class="app-card" type="button" data-case-open="mediatracker-case" data-reveal>
+            <span class="app-stage app-stage-mediatracker"><img src="/images/apps/mediatracker-library.webp?v=20261127" alt="MediaTracker library screen" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/mediatracker-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>MediaTracker</h3>
+                  <span class="app-note">working title</span>
+                </span></span>
+              <p>One library for films, series, books, and games, with imports from five services.</p>
+              <span class="app-tags">iPhone · SwiftUI · SwiftData</span>
+              <span class="card-action">Read the case</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="monolens-case" data-reveal>
+            <span class="app-stage app-stage-monolens"><img src="/images/apps/monolens-overview.webp?v=20261127" alt="MonoLens overview screen" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/monolens-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>MonoLens</h3>
+                </span></span>
+              <p>Budgets on top of Monobank, plus a wishlist that tracks prices and instalments.</p>
+              <span class="app-tags">iPhone · SwiftUI · Claude API</span>
+              <span class="card-action">Read the case</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="activity-case" data-reveal>
+            <span class="app-stage app-stage-activity"><img src="/images/apps/activity-today.webp?v=20261127" alt="Activity tracker Today screen" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/activity-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>Activity tracker</h3>
+                </span></span>
+              <p>Notion activities and Jira and Redmine tickets on the desktop, in the menu bar, and on the lock screen.</p>
+              <span class="app-tags">Mac + iPhone · WidgetKit</span>
+              <span class="card-action">Read the case</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="kuzovok-case" data-reveal>
+            <span class="app-stage app-stage-kuzovok"><img src="/images/apps/kuzovok-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/kuzovok-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>KuzovOK tools</h3>
+                  <span class="app-note">client project</span>
+                </span></span>
+              <p>iPhone and Mac apps for a body shop’s owner and accountant.</p>
+              <span class="app-tags">iPhone + Mac · Supabase</span>
+              <span class="card-action">Read the case</span>
+            </div>
+          </button>
+        </div>
+
         <div class="github-inner" data-github-activity data-github-user="maxim4iik">
           <div class="github-copy" data-reveal>
             <p class="overline">GitHub activity</p>
-            <h2>Side projects keep the practice sharp.</h2>
-            <p>Outside the main work, I keep building small product ideas, tools, and technical experiments. Most repositories stay private, so the total reflects the last year while the calendar shows the latest 26 weeks — without repo details.</p>
+            <p>The repositories behind these apps are private, so the calendar shows the work itself: a yearly total and the latest 26 weeks, without repo details.</p>
             <a class="github-profile-link" href="https://github.com/maxim4iik" target="_blank" rel="noreferrer">
               <span>github.com/maxim4iik</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

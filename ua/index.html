@@ -28,9 +28,9 @@
     <link rel="alternate" hreflang="en" href="https://maksym-trokhymets-portfolio.vercel.app/">
     <link rel="alternate" hreflang="uk" href="https://maksym-trokhymets-portfolio.vercel.app/ua/">
     <link rel="alternate" hreflang="x-default" href="https://maksym-trokhymets-portfolio.vercel.app/">
-    <link rel="stylesheet" href="/assets/styles.css?v=20261120-kuzovok-case">
+    <link rel="stylesheet" href="/assets/styles.css?v=20261127-apps">
     <script src="/assets/theme-init.js?v=20260713-darkgrid"></script>
-    <script src="/assets/main.js?v=20261120-kuzovok-case" defer></script>
+    <script src="/assets/main.js?v=20261127-apps" defer></script>
     <script defer src="/_vercel/speed-insights/script.js"></script>
     <script defer src="/_vercel/insights/script.js"></script>
     <script type="application/ld+json">
@@ -89,6 +89,7 @@
         <a href="#bridge">Зв’язка</a>
         <a href="#background">Бекґраунд</a>
         <a href="#websites">Сайти</a>
+        <a href="#apps">Застосунки</a>
         <a href="#contact">Контакт</a>
         <a class="nav-cv" href="/files/cv-maksym-trokhymets.pdf" download>Завантажити CV</a>
         <button class="theme-toggle" type="button" aria-label="Тема: авто (за пристроєм). Натисніть, щоб обрати світлу" data-theme-toggle>
@@ -556,7 +557,7 @@
                   <h3>Шрифт</h3>
                   <p>Kuzov Display бере пропорції з концепту вивіски СТО: Black Italic, нахил 15°, гострі шпори. Kuzov Text — спокійніша пара для основного тексту. Обидві сім’ї мають кирилицю й латиницю, виходять змінними шрифтами і генеруються з параметричного коду на Python, а для виробника вивіски є експорт у SVG, PDF і DXF.</p>
                   <figure class="case-figure">
-                    <img src="/images/kuzov-type-specimen.webp?v=20261120" alt="Зразок шрифтів Kuzov Display і Kuzov Text: емблема й напис КузовОК, кирилиця з цифрами і зразок тексту в трьох накресленнях." width="1200" height="540" loading="lazy" decoding="async">
+                    <img data-src="/images/kuzov-type-specimen.webp?v=20261120" alt="Зразок шрифтів Kuzov Display і Kuzov Text: емблема й напис КузовОК, кирилиця з цифрами і зразок тексту в трьох накресленнях." width="1200" height="540" decoding="async">
                   </figure>
                 </div>
               </article>
@@ -583,12 +584,245 @@
         </section>
       </div>
 
-      <section class="github-section" id="github">
+      <div class="case-study-modal" id="mediatracker-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="mediatracker-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Власний застосунок · iPhone · робоча назва</p>
+              <h2 id="mediatracker-case-title">Одна бібліотека для фільмів, серіалів, книжок та ігор.</h2>
+              <p>Local-first застосунок для iPhone, який я проєктую й роблю сам. Назва робоча — доки продукт не отримає власну.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Закрити кейс" data-case-close>Закрити</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/mediatracker-library.webp?v=20261127" alt="Бібліотека фільмів у MediaTracker, згрупована за роками" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/mediatracker-import.webp?v=20261127" alt="MediaTracker зіставляє імпортований список із каталогом" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/mediatracker-detail.webp?v=20261127" alt="Сторінка гри в MediaTracker з оцінкою й деталями" width="480" height="1044" decoding="async">
+              <figcaption>Екрани на тестових даних.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Проблема</h3>
+                  <p>Оцінки й історія переглядів зазвичай живуть у кількох сервісах одразу — IMDb, Letterboxd, Goodreads, TV Time, Simkl — і в кожного свій формат експорту, свої дублікати й своє уявлення про назву.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Продуктові рішення</h3>
+                  <p>Імпорт я розглядав як міграцію даних: кожен рядок звіряється зі справжнім каталогом, дублікати зливаються зі збереженням останньої активності, а все неоднозначне чекає на крок перегляду, а не вгадується. Бібліотека лишається на телефоні.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Збірка</h3>
+                  <p>SwiftUI і SwiftData; обкладинки з TMDB, Open Library і RAWG з чесними заглушками офлайн; сповіщення про нові серії, експорт у календар, де дивитися в Україні, плейлисти, віджет, досягнення і 29 іконок на вибір.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Результат</p>
+              <h3>Імпорт, якому можна довіряти.</h3>
+              <ul>
+                <li>Нічого не зіставляється мовчки: неоднозначні назви чекають на рішення.</li>
+                <li>Одна бібліотека для чотирьох типів медіа замість п’яти застосунків.</li>
+                <li>Імпорт, злиття й основні сценарії покриті unit- і UI-тестами.</li>
+              </ul>
+              <p class="case-study-signal">Демонструє: data migration · product scoping · iOS · SwiftUI</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="monolens-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="monolens-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Власний застосунок · iPhone</p>
+              <h2 id="monolens-case-title">Особисті фінанси поверх Monobank і список бажаного, що стежить за цінами.</h2>
+              <p>Приватний застосунок для iPhone для моїх власних грошей. Lens — частина зі списком бажаного — починався як окремий монітор, а тепер це той самий застосунок.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Закрити кейс" data-case-close>Закрити</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/monolens-overview.webp?v=20261127" alt="Огляд місяця в MonoLens з витратами за категоріями" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/monolens-activity.webp?v=20261127" alt="Стрічка транзакцій у MonoLens" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/monolens-budgets.webp?v=20261127" alt="Бюджети в MonoLens з попередженнями про темп і перевищенням" width="480" height="1044" decoding="async">
+              <figcaption>Екрани на тестових даних.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Проблема</h3>
+                  <p>Банківський застосунок показує транзакції, а не плани: немає лімітів за категоріями, немає огляду регулярних платежів і немає зв’язку між запланованою покупкою та грошима, які на неї підуть.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Продуктові рішення</h3>
+                  <p>Транзакції приходять з API Monobank та імпортованих виписок; Claude Haiku пропонує категорії пакетами, а кешування промпту тримає вартість низькою. Lens щодня перевіряє бажані товари в українських магазинах і фіксує ціну, наявність та умови розстрочки, а банк називає лише тоді, коли його вказують дані самого магазину про товар.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Збірка</h3>
+                  <p>SwiftUI і SwiftData з робочими просторами, бюджети з попередженнями про темп, пошук регулярних платежів, PIN із PBKDF2 і Face ID, токени в Keychain. Перевірка списку бажаного працює як запланована задача GitHub Actions.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Результат</p>
+              <h3>Плани й витрати в одному місці.</h3>
+              <ul>
+                <li>Бюджети попереджають про темп, а не лише про перевищення.</li>
+                <li>Покупку можна зв’язати з платежем по картці — як підказку, ніколи автоматично.</li>
+                <li>Банківські дані лишаються на телефоні; у репозиторії списку бажаного — лише дані про покупки.</li>
+              </ul>
+              <p class="case-study-signal">Демонструє: fintech domain · data rules · iOS · AI integration</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <div class="case-study-modal" id="activity-case" aria-hidden="true">
+        <div class="preview-backdrop" data-case-close></div>
+        <section class="case-study-dialog" role="dialog" aria-modal="true" aria-labelledby="activity-case-title">
+          <header class="case-study-header">
+            <div>
+              <p class="preview-status">Власний застосунок · Mac та iPhone</p>
+              <h2 id="activity-case-title">Мій робочий день з одного погляду: активності з Notion і заявки з трекерів разом.</h2>
+              <p>Застосунок для Mac із віджетом на робочому столі й керуванням у рядку меню, плюс компаньйон для iPhone. Це інструмент, який я зробив під власну BA-роботу.</p>
+            </div>
+            <button class="preview-close" type="button" aria-label="Закрити кейс" data-case-close>Закрити</button>
+          </header>
+
+          <div class="case-study-body">
+            <figure class="case-screens">
+              <img data-src="/images/apps/activity-today.webp?v=20261127" alt="Екран «Сьогодні» в Activity tracker з дедлайнами" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/activity-list.webp?v=20261127" alt="Список активностей з лічильниками статусів" width="480" height="1044" decoding="async">
+              <img data-src="/images/apps/activity-issues.webp?v=20261127" alt="Заявки з Jira та Redmine в Activity tracker" width="480" height="1044" decoding="async">
+              <figcaption>Екрани на тестових даних.</figcaption>
+            </figure>
+
+            <div class="case-study-flow">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Проблема</h3>
+                  <p>Робота жила в трьох місцях: дошка активностей у Notion, Jira і Redmine. Між ними легко було пропустити дедлайн чи відповідь у заявці.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Продуктові рішення</h3>
+                  <p>Один список за дедлайнами — сьогоднішні й прострочені першими. Заявки з обох трекерів зливаються, позначаються моєю роллю — створив чи спостерігаю — і дзеркаляться в Notion. Позначка «Готово» у віджеті одразу записується назад у Notion.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Збірка</h3>
+                  <p>SwiftUI, WidgetKit, macOS Control для рядка меню й Пункту керування, фонове оновлення і застосунок для iPhone з Live Activities для сьогоднішніх дедлайнів. Токени — у Keychain.</p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="case-study-outcome">
+              <p class="overline">Результат</p>
+              <h3>Один погляд замість трьох вкладок.</h3>
+              <ul>
+                <li>Сьогоднішнє й прострочене — першими.</li>
+                <li>«Готово» — один клік у віджеті, і джерело оновлюється.</li>
+                <li>Ролі в заявках показують, що чекає на мою дію, а що я лише відстежую.</li>
+              </ul>
+              <p class="case-study-signal">Демонструє: workflow analysis · integrations · macOS і iOS · WidgetKit</p>
+            </aside>
+          </div>
+        </section>
+      </div>
+
+      <section class="github-section apps-section" id="apps">
+        <div class="section-intro" data-reveal>
+          <div class="section-copy">
+            <p class="overline">Застосунки</p>
+            <p>Нативні застосунки для iPhone і Mac, які я проєктую й роблю сам. Репозиторії приватні, тож кожна картка відкриває короткий кейс з екранами на тестових даних.</p>
+          </div>
+          <h2>Продукти, які я роблю від початку до кінця.</h2>
+        </div>
+
+        <div class="app-cards">
+          <button class="app-card" type="button" data-case-open="mediatracker-case" data-reveal>
+            <span class="app-stage app-stage-mediatracker"><img src="/images/apps/mediatracker-library.webp?v=20261127" alt="Екран бібліотеки MediaTracker" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/mediatracker-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>MediaTracker</h3>
+                  <span class="app-note">робоча назва</span>
+                </span></span>
+              <p>Одна бібліотека для фільмів, серіалів, книжок та ігор з імпортом із п’яти сервісів.</p>
+              <span class="app-tags">iPhone · SwiftUI · SwiftData</span>
+              <span class="card-action">Читати кейс</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="monolens-case" data-reveal>
+            <span class="app-stage app-stage-monolens"><img src="/images/apps/monolens-overview.webp?v=20261127" alt="Екран огляду MonoLens" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/monolens-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>MonoLens</h3>
+                </span></span>
+              <p>Бюджети поверх Monobank і список бажаного, що стежить за цінами й розстрочкою.</p>
+              <span class="app-tags">iPhone · SwiftUI · Claude API</span>
+              <span class="card-action">Читати кейс</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="activity-case" data-reveal>
+            <span class="app-stage app-stage-activity"><img src="/images/apps/activity-today.webp?v=20261127" alt="Екран «Сьогодні» в Activity tracker" width="480" height="1044" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/activity-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>Activity tracker</h3>
+                </span></span>
+              <p>Активності з Notion і заявки з Jira та Redmine — на робочому столі, в рядку меню й на локскріні.</p>
+              <span class="app-tags">Mac + iPhone · WidgetKit</span>
+              <span class="card-action">Читати кейс</span>
+            </div>
+          </button>
+
+          <button class="app-card" type="button" data-case-open="kuzovok-case" data-reveal>
+            <span class="app-stage app-stage-kuzovok"><img src="/images/apps/kuzovok-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"></span>
+            <div>
+              <span class="app-head"><img class="app-icon" src="/images/apps/kuzovok-icon.webp?v=20261127" alt="" width="128" height="128" loading="lazy" decoding="async"><span>
+                  <h3>Інструменти КузовОК</h3>
+                  <span class="app-note">клієнтський проєкт</span>
+                </span></span>
+              <p>Застосунки для iPhone і Mac для власника СТО та бухгалтера.</p>
+              <span class="app-tags">iPhone + Mac · Supabase</span>
+              <span class="card-action">Читати кейс</span>
+            </div>
+          </button>
+        </div>
+
         <div class="github-inner" data-github-activity data-github-user="maxim4iik">
           <div class="github-copy" data-reveal>
             <p class="overline">GitHub активність</p>
-            <h2>Паралельно працюю над side-проєктами.</h2>
-            <p>Окрім основної роботи, збираю невеликі продукти, інструменти й технічні експерименти. Більшість репозиторіїв приватні, тому загальна цифра охоплює рік, а календар показує останні 26 тижнів — без деталей репозиторіїв.</p>
+            <p>Репозиторії цих застосунків приватні, тож календар показує саму роботу: загальну цифру за рік і останні 26 тижнів — без деталей репозиторіїв.</p>
             <a class="github-profile-link" href="https://github.com/maxim4iik" target="_blank" rel="noreferrer">
               <span>github.com/maxim4iik</span>
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7m0 0H8m9 0v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>

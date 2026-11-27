@@ -299,6 +299,10 @@ const openCaseStudy = (id, returnFocus) => {
   if (!modal) return;
   activeCase = modal;
   caseReturnFocus = returnFocus || null;
+  modal.querySelectorAll('img[data-src]').forEach((image) => {
+    image.src = image.dataset.src;
+    image.removeAttribute('data-src');
+  });
   modal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('case-open');
   modal.querySelector('.preview-close')?.focus();
